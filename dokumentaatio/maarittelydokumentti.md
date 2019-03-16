@@ -13,7 +13,7 @@ Huffmanin koodauksessa käytetään minimi-kekoa (min heap), kun rakennetaan Huf
 Ohjelmaa käytetään komentoriviltä. Se ottaa syötteeksi polun tiedostoon, joka puretaan tai pakataan, valittavan algoritmin, ja tiedon, ollaanko purkamassa vai pakkaamassa tiedostoa. Ohjelma suoriutuu ja tekee tiedoston jossa sisäänotettu tiedosto purettuna / pakattuna.
 
 ## Tavoitteena olevat aika- ja tilavaativuudet
-Tavoitteena on parempi pakkauskoko kuin Huffmanin koodauksella ja Lempel Ziv algoritmilla yksittäin. Aika- ja tilavaativuudet tullaan lisäämään tälle sivulle pian.
+Tavoitteena on pienempi pakkauskoko kuin Huffmanin koodauksella ja Lempel Ziv algoritmilla yksittäin. Aika- ja tilavaativuudet tullaan lisäämään tälle sivulle pian.
 
 ## Lähteet
 - https://www.ietf.org/rfc/rfc1951.txt
