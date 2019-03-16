@@ -9,7 +9,7 @@ Valitsen projektissa DEFLATE-algoritmin, koska se on hyvin laajalle levinnyt ja 
 ## Mitä tietorakenteita toteutat työssäsi?
 Huffmanin koodauksessa käytetään minimi-kekoa (min heap), kun rakennetaan Huffmanin puuta. Valmis Huffmanin puu esitetään puu tietorakenteena. Lempel Ziv algoritmissa hakubufferi tullaan esittämään jonkinlaisena hakupuuna. Jos projektin aikana tarvitaan muita tietorakenteita, tullaan tätä dokumenttia päivittämään.
 
-## Mitä syötteitä ohjelma saa ja miten näitä käytetään
+## Mitä syötteitä ohjelma saa
 Ohjelmaa käytetään komentoriviltä. Se ottaa syötteeksi polun tiedostoon, joka puretaan tai pakataan, valittavan algoritmin, ja tiedon, ollaanko purkamassa vai pakkaamassa tiedostoa. Ohjelma suoriutuu ja tekee tiedoston jossa sisäänotettu tiedosto purettuna / pakattuna.
 
 ## Tavoitteena olevat aika- ja tilavaativuudet
