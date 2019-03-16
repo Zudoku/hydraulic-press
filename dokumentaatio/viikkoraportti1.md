@@ -15,3 +15,5 @@ Hieman epäselvää on, mitä tietorakenteita projektissa tullaan käyttämään
 
 ## Mitä teen seuraavaksi?
 Seuraavaksi teen Huffmanin koodauksen ja LZ77 algoritmien toteutuksen käyttäen alustavasti Javan tietorakenteita. Toivottavasti ehdin myös aloittaa DEFLATE algoritmin toteutusta edes jossain määrin. 
+
+Tällä viikolla käytin projektiin noin 6 tuntia.
