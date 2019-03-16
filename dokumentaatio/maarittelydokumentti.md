@@ -3,7 +3,7 @@ Projektin määrittely
 
 Projektin päämääränä on toteuttaa tiedostonpakkaus-ohjelma Javalla, joka käyttää DEFLATE-algoritmia. Deflate-algoritmi on häviötön algoritmi, joka tarkoittaa sitä, että data voidaan pakata ja purkaa, niin ettei tietoa katoa. Se perustuu Huffmanin koodaukseen, sekä Lempel Ziv-algoritmiin (LZ77), jotka tullaan myös toteuttamaan projektiin. 
 
-Valitsen projektissa DEFLATE-algoritmin, koska se on hyvin laajalle levinnyt ja sitä käytetään osana muita tiedostonpakkaus algoritmeja, enkä koe sen olevan tämän projektin aikataulun ulkopuolella. Projekti keskittyy itse algoritmin toteuttamiseen, mutta toissijaisena päämäränä on saada ohjelma tallentamaan pakattu tiedosto gzip tiedostomuotoon, jotta ohjelman tuottamia tiedostoja voidaan purkaa myös muilla ohjelmilla tai vastaavasti toisinpäin. Gzip tiedostomuoto (.gz) lisää DEFLATE pakattuun dataan otsaketietoja, sekä tarkistussumman.
+Valitsen projektissa DEFLATE-algoritmin, koska se on hyvin laajalle levinnyt ja sitä käytetään osana muita tiedostonpakkaus algoritmeja. Projekti keskittyy itse algoritmin toteuttamiseen, mutta toissijaisena päämäränä on saada ohjelma tallentamaan pakattu tiedosto gzip tiedostomuotoon, jotta ohjelman tuottamia tiedostoja voidaan purkaa myös muilla ohjelmilla tai vastaavasti toisinpäin. Gzip tiedostomuoto (.gz) lisää DEFLATE pakattuun dataan otsaketietoja, sekä tarkistussumman.
 
 
 ## Mitä tietorakenteita toteutat työssäsi?
