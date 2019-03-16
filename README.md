@@ -1,7 +1,7 @@
 # Hydraulic-Press
 **Arttu Siren**
 
-*[TiraLabra](https://github.com/TiraLabra/2019_4) projekti, Periodi IV*
+*[TiraLabra](https://github.com/TiraLabra/2019_4) projekti, 2019 Periodi IV*
 
 ```
 Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) ja DEFLATE tiedostonpakkaus algoritmit.
