@@ -5,7 +5,7 @@ Otsikko
 Projektin aihe on päätetty, ja projektin toteutusta on suunniteltu ja mietitty. Alustin projektin githubiin sekä kirjotin määrittelydokumentin.
 
 ## Miten ohjelma on edistynyt?
-Ohjelma ei ole vielä koodattu yhtään, mutta toteutusta on hahmoteltu ja mietitty.
+Projektille tehtiin netbeans projekti ja toteutusta on hahmoteltu ja mietitty.
 
 ## Mitä opin tällä viikolla / tänään?
 Ennen tätä viikkoa, en tiennyt mitään DEFLATE algoritmista ja sen tutkiminen on ollut mukavaa. Opin myös gzip tiedostoformaatista ja Lempel Ziv algoritmista.
