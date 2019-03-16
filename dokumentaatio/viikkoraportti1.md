@@ -1,10 +1,17 @@
 Otsikko
 ====
 
-TODO: vastaa näihin kysymyksiin
+## Mitä olen tehnyt tällä viikolla?
+Projektin aihe on päätetty, ja projektin toteutusta on suunniteltu ja mietitty. Alustin projektin githubiin sekä kirjotin määrittelydokumentin.
 
-Mitä olen tehnyt tällä viikolla?
-Miten ohjelma on edistynyt?
-Mitä opin tällä viikolla / tänään?
-Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
-Mitä teen seuraavaksi?
+## Miten ohjelma on edistynyt?
+Ohjelma ei ole vielä koodattu yhtään, mutta toteutusta on hahmoteltu ja mietitty.
+
+## Mitä opin tällä viikolla / tänään?
+Ennen tätä viikkoa, en tiennyt mitään DEFLATE algoritmista ja sen tutkiminen on ollut mukavaa. Opin myös gzip tiedostoformaatista ja Lempel Ziv algoritmista.
+
+## Mikä jäi epäselväksi tai tuottanut vaikeuksia?
+Hieman epäselvää on, mitä tietorakenteita projektissa tullaan käyttämään tarkalleen ja mitkä niiden aika ja tilavaatimukset tulevat olemaan.  Yritän ensi viikon aikana parantaa määrittelydokumenttia tämän tienoilta.
+
+## Mitä teen seuraavaksi?
+Seuraavaksi teen Huffmanin koodauksen ja LZ77 algoritmien toteutuksen käyttäen alustavasti Javan tietorakenteita. Toivottavasti ehdin myös aloittaa DEFLATE algoritmin toteutusta edes jossain määrin. 
