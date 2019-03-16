@@ -1,7 +1,7 @@
 # Hydraulic-Press
+**Arttu Siren**
 
 *[TiraLabra](https://github.com/TiraLabra/2019_4) projekti*
-**Arttu Siren**
 
 ```
 Projektin aiheena on tutkia ja toteuttaa pakkaus algoritmeja.
