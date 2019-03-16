@@ -4,7 +4,7 @@
 *[TiraLabra](https://github.com/TiraLabra/2019_4) projekti*
 
 ```
-Projektin aiheena on tutkia ja toteuttaa pakkaus algoritmeja.
+Projektin aiheena on tutkia ja vertailla tiedoston pakkaus-algoritmeja.
 ```
 
 ### Dokumentaatio
