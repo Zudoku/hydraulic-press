@@ -1,8 +1,6 @@
-package fi.zudoku.hydraulic;
+package fi.zudoku.hydraulic.util;
 
 import fi.zudoku.hydraulic.domain.Operations;
-import fi.zudoku.hydraulic.util.FileUtils;
-import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 import java.io.IOException;
 
 public class ArgumentBuilder {
