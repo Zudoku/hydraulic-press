@@ -1,18 +1,19 @@
 package fi.zudoku.hydraulic;
 
-import fi.zudoku.hydraulic.util.FileUtils;
-import java.io.IOException;
-import java.util.Arrays;
+import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 
 public class Main {
     public static void main(String[] args) {
         
-        try {
-            byte[] testdata = FileUtils.loadFileToByteArray("testdata.tst");
-            System.out.println(Arrays.toString(testdata));
-        } catch (SecurityException | IOException ex) {
-            System.out.println("not found");
+        HydraulicPressArguments arguments = ArgumentBuilder.parseArguments(args);
+        
+        if (arguments == null) {
+            System.out.println("Failed to parse your arguments, not doing anything");
+            return;
         }
+        
+        HydraulicPressInstance hydraulicPress = new HydraulicPressInstance(arguments);
+        hydraulicPress.run();
     }
 }
 
