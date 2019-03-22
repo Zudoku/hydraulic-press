@@ -24,7 +24,7 @@ public class CompressHuffManCoding implements Operation{
     
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
         PriorityQueue<HuffmanNode> nodes = new PriorityQueue<>();
-        for(byte data: input) {
+        for (byte data: input) {
             HuffmanLeafNode nodeToAdd = new HuffmanLeafNode(data, 1);
             
             if (nodes.contains(nodeToAdd)) {

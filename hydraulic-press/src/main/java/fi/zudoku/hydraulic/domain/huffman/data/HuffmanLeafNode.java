@@ -1,9 +1,12 @@
 package fi.zudoku.hydraulic.domain.huffman.data;
 
+import fi.zudoku.hydraulic.util.BitBlob;
+
 public class HuffmanLeafNode extends HuffmanNode {
     
     private final byte dataToCompress;
     private int amount;
+    private BitBlob compressed;
 
     public HuffmanLeafNode(byte dataToCompress, int amount) {
         this.dataToCompress = dataToCompress;
@@ -23,6 +26,14 @@ public class HuffmanLeafNode extends HuffmanNode {
         amount++;
     }
 
+    public BitBlob getCompressed() {
+        return compressed;
+    }
+
+    public void setCompressed(BitBlob compressed) {
+        this.compressed = compressed;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return (other instanceof HuffmanLeafNode && ((HuffmanLeafNode) other).dataToCompress == dataToCompress);
