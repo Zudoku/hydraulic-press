@@ -20,7 +20,7 @@ Seuraavaksi viimeistelen Huffmanin koodauksen ja aloitan LZ77 algoritmin toteutu
 Yksi haaste, on miettiä miten ottaa huomioon pakattavan datan bufferin suuruus huffmanin koodauksessa. Eli siis se, kuinka iso alue ajatellaan yhden koodattavan datan olevan (byte? char? 64 byteä?). Yleensä esimerkeissä tämän pituus on yksi kirjain.  Olen toteuttanut tällä hetkelläsen ohjelmaan niin, että tarkasteltavan alueen suuruus on 1 byte kerrallaan, mutta olisi ehkä hyvä jos suuruuden voisi määritellä jotenkin argumenttina.
 
 ## Kysymyksiä:
-Onko sallittua käyttää javan java.io.File ja java.io.FileInputStream luokkia tiedoston lukemiseen byte taulukoksi?
+Onko sallittua käyttää javan `java.io.File` ja `java.io.FileInputStream` luokkia tiedoston lukemiseen byte taulukoksi?
 ks. [tämä](./../hydraulic-press/src/main/java/fi/zudoku/hydraulic/util/FileUtils.java)
 
 Tällä viikolla käytin projektiin noin 12 tuntia.
