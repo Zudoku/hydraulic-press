@@ -7,7 +7,7 @@ import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
 import java.util.PriorityQueue;
 
-public class CompressHuffManCoding implements Operation{
+public class CompressHuffManCoding implements Operation {
 
     @Override
     public byte[] execute(byte[] input) {

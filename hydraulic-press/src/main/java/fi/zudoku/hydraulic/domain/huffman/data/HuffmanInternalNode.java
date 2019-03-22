@@ -20,6 +20,9 @@ public class HuffmanInternalNode extends HuffmanNode {
         return right;
     }
 
+    /**
+     * @return the combined frequency of all the child leafs
+     */
     @Override
     public int getAmount() {
         return left.getAmount() + right.getAmount();
@@ -35,7 +38,6 @@ public class HuffmanInternalNode extends HuffmanNode {
         } else {
             return false;
         }
-        
     }
 
     @Override
