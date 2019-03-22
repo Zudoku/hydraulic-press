@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 public class CompressHuffManCoding implements Operation{
 
     @Override
-    public byte[] excecute(byte[] input) {
+    public byte[] execute(byte[] input) {
         // construct huffman tree
         HuffmanTree tree = buildHuffmanTreeFromInput(input);
         

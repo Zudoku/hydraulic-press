@@ -13,8 +13,8 @@ public class Main {
             return;
         }
         
-        HydraulicPressInstance hydraulicPress = new HydraulicPressInstance(arguments);
-        hydraulicPress.run();
+        HydraulicPressInstance hydraulicPress = new HydraulicPressInstance();
+        hydraulicPress.run(arguments);
     }
 }
 
