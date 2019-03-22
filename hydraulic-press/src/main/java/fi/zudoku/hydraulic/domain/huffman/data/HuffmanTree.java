@@ -2,7 +2,7 @@ package fi.zudoku.hydraulic.domain.huffman.data;
 
 public class HuffmanTree {
     
-    private HuffmanNode rootNode;
+    private final HuffmanNode rootNode;
 
     public HuffmanTree(HuffmanNode rootNode) {
         this.rootNode = rootNode;

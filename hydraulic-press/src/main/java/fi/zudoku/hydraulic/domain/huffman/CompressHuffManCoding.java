@@ -1,6 +1,7 @@
 package fi.zudoku.hydraulic.domain.huffman;
 
 import fi.zudoku.hydraulic.domain.Operation;
+import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
@@ -29,29 +30,24 @@ public class CompressHuffManCoding implements Operation{
             if (nodes.contains(nodeToAdd)) {
                 for (HuffmanNode node : nodes) {
                     if (node.equals(nodeToAdd)) {
-                        node.addOne();
+                        ((HuffmanLeafNode)node).addOne();
                     }
                 }
             } else {
                 nodes.add(nodeToAdd);
             }
         }
-        
-       
-        
-        nodes = new PriorityQueue<>(nodes);
-        int size = nodes.size();
-        
-        for (int i = 0; i < size; i++) {
-            HuffmanNode n = nodes.remove();
-            
-            System.out.println(n.getDataToCompress() + " " + n.getAmount());
-        }
-        
-        
-       
 
-        return null;
+        nodes = new PriorityQueue<>(nodes);
+        
+        while(nodes.size() > 1) {
+            HuffmanNode lower = nodes.poll();
+            HuffmanNode higher = nodes.poll();
+            HuffmanNode combined = new HuffmanInternalNode(lower, higher);
+            nodes.add(combined);
+        }
+
+        return new HuffmanTree(nodes.poll());
     }
    
 }
