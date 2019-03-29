@@ -64,4 +64,58 @@ public class BitBlob {
         return new BitBlob(numOfBits, data);
     }
     
+    public BitBlob append(BitBlob one, BitBlob other) {
+        
+        int newDataLength =  calculateDataLength(one, other);
+        
+        byte[] newData = new byte[newDataLength];
+        System.arraycopy(one.data, 0, newData, 0, one.data.length);
+        
+        int byteCutPoint = one.numOfBits % 8;
+        
+        if (byteCutPoint != 0) {
+            newData[one.data.length - 1] = modifyCombinedByte(newData[one.data.length - 1], other.data[0], byteCutPoint);
+        }
+        
+        for (int index = one.data.length; index < newDataLength; index++) {
+            int unsignedFirst = other.data[index - one.data.length];
+            
+            if (unsignedFirst < 0) {
+                unsignedFirst += 127;
+            }
+            unsignedFirst <<= 7 - byteCutPoint;
+            int otherIndex = index - one.data.length + 1;
+            byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
+            newData[index] = modifyCombinedByte((byte)unsignedFirst, second, byteCutPoint);
+        }
+    }
+    
+    private int calculateDataLength(BitBlob one, BitBlob other) {
+        int length  = one.data.length + other.data.length;
+        int leftOverBits = (one.numOfBits % 8) + (other.numOfBits % 8);
+        if (leftOverBits < 8) {
+            length -= 1;
+        } else if (leftOverBits > 8) {
+            length += 1;
+        }
+        return length;
+    }
+
+    private byte modifyCombinedByte(byte one, byte other, int otherCutPoint) {
+        int unsigned = one;
+        if (unsigned < 0) {
+            unsigned += 127;
+        }
+        
+        int otherUnsigned = other;
+        if (otherUnsigned < 0) {
+            otherUnsigned += 127;
+        }
+        
+        otherUnsigned >>>= otherCutPoint;
+        
+        int result = unsigned | otherUnsigned;
+        return (byte) result;
+    }
+
 }
