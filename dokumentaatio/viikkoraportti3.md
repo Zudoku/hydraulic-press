@@ -7,7 +7,7 @@ Eniten tällä viikolla aikaa meni, jotta sain implementoitua tavan käsitellä 
 Implementoin binäärihakupuun huffmanin puuta varten, jossa on add ja find metodit (ei muita atm. tarvitseeko?)
 
 ## Miten ohjelma on edistynyt?
-Ottaen huomioon, että malliaikataulussa sanotaan ensi palautukseen kuuluvan "Ohjelman ydintoiminta valmis", on itselläni siihen seuraavalla viikolla 4.
+Ottaen huomioon, että malliaikataulussa sanotaan ensi palautukseen kuuluvan "Ohjelman ydintoiminta valmis", on itselläni kirittävää siihen seuraavalla viikolla.
 
 ## Mitä opin tällä viikolla / tänään?
 Itselleni selkeytyi kuva siitä, miten unsigned ja signed arvot toimivat (javassa).
