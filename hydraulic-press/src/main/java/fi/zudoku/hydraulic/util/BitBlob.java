@@ -8,11 +8,9 @@ package fi.zudoku.hydraulic.util;
  */
 public class BitBlob {
     private int numOfBits = 0;
-    private byte[] data = new byte[1];
+    private byte[] data = new byte[0];
 
-    public BitBlob() {
-        
-    }
+    public BitBlob() {}
     
     private BitBlob(int numOfBits, byte[] data) {
         this.numOfBits = numOfBits;
@@ -26,15 +24,40 @@ public class BitBlob {
      * Appends the bit '1' to the end of data
      */
     public void appendOne() {
+        checkIfNeedToExtendData();
         numOfBits++;
-        //TODO
+        int byteIndex = (numOfBits - (numOfBits % 8)) / 8;
+        byte modifiedByte = appendOneToByte(data[byteIndex], numOfBits % 8);
+        data[byteIndex] = modifiedByte;
+    }
+    
+    private byte appendOneToByte(byte input, int index) {
+        int unsignedInput = input;
+        if (unsignedInput < 0) {
+            unsignedInput += 127;
+        }
+        int mask = 1;
+        mask <<= 7 - index;
+        int result = (unsignedInput | mask);
+        return (byte) result;
     }
     /**
      * Appends the bit '0' to the end of data
      */
     public void appendZero() {
+        checkIfNeedToExtendData();
         numOfBits++;
-        //TODO
+    }
+    
+    private void checkIfNeedToExtendData() {
+        int bitsFreeInData = (data.length * Byte.SIZE) - numOfBits;
+       
+        if (bitsFreeInData == 0) {
+            byte[] newData = new byte[data.length + 1];
+            // IS THIS ALLOWED?
+            System.arraycopy(data, 0, newData, 0, data.length);
+            data = newData;
+        }
     }
     
     public BitBlob copy() {

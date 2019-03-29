@@ -21,6 +21,7 @@ public class HuffmanTree {
     }
     
     public void initialize() {
+        searchTree = new BinaryTree<>();
         calculatePathForLeafNodesAndSetUpSearchTree();
     }
     /**

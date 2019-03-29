@@ -13,11 +13,11 @@ public class CompressHuffManCoding implements Operation {
     public byte[] execute(byte[] input) {
         // construct huffman tree
         HuffmanTree tree = buildHuffmanTreeFromInput(input);
+        tree.initialize();
         
         // encode huffman tree to the beginning of the result
         
         // go through input, and replace bytes from input with the huffman tree bits
-        
         return null;
     }
 
