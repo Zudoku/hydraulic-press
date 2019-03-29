@@ -3,15 +3,15 @@ package fi.zudoku.hydraulic.domain.generic;
 /**
  * Binary search tree
  */
-public class BinaryTree {
+public class BinaryTree<T> {
     
-    private BinaryTreeNode rootNode = null;
+    private BinaryTreeNode<T> rootNode = null;
 
-    public void add(byte value, Object result) {
+    public void add(byte value, T result) {
         rootNode = add(rootNode, value, result);
     }
     
-    private BinaryTreeNode add(BinaryTreeNode current, byte value, Object result) {
+    private BinaryTreeNode add(BinaryTreeNode current, byte value, T result) {
         if (current == null) {
             return new BinaryTreeNode(value, result);
         }
@@ -29,11 +29,11 @@ public class BinaryTree {
         return current;
     }
     
-    public Object find(byte value) {
+    public T find(byte value) {
         return find(rootNode, value);
     }
     
-    private Object find(BinaryTreeNode node, byte value) {
+    private T find(BinaryTreeNode<T> node, byte value) {
         if (node == null) {
             return null;
         }

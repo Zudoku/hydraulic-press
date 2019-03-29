@@ -1,23 +1,23 @@
 package fi.zudoku.hydraulic.domain.generic;
 
-public class BinaryTreeNode {
+public class BinaryTreeNode<T> {
     private final byte value;
-    private final Object result;
+    private final T result;
     private BinaryTreeNode left;
     private BinaryTreeNode right;
  
-    public BinaryTreeNode(byte value, Object result) {
+    public BinaryTreeNode(byte value, T result) {
         this.value = value;
         this.result = result;
         right = null;
         left = null;
     }
 
-    public BinaryTreeNode getLeft() {
+    public BinaryTreeNode<T> getLeft() {
         return left;
     }
 
-    public BinaryTreeNode getRight() {
+    public BinaryTreeNode<T> getRight() {
         return right;
     }
 
@@ -33,7 +33,7 @@ public class BinaryTreeNode {
         this.right = right;
     }
 
-    public Object getResult() {
+    public T getResult() {
         return result;
     }
 }
