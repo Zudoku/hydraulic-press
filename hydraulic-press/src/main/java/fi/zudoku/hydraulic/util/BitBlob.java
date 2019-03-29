@@ -88,6 +88,8 @@ public class BitBlob {
             byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
             newData[index] = modifyCombinedByte((byte)unsignedFirst, second, byteCutPoint);
         }
+        
+        return new BitBlob(one.numOfBits + other.numOfBits, newData);
     }
     
     private int calculateDataLength(BitBlob one, BitBlob other) {
