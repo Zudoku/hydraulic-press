@@ -21,7 +21,11 @@ public class CompressHuffManCoding implements Operation {
         return null;
     }
 
-    
+    /**
+     * Traverse through the input one byte at a time, and construct a huffman tree with it.
+     * @param input data to build huffman tree from.
+     * @return a complete HuffmanTree.
+     */
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
         PriorityQueue<HuffmanNode> nodes = new PriorityQueue<>();
         for (byte data: input) {
@@ -30,7 +34,7 @@ public class CompressHuffManCoding implements Operation {
             if (nodes.contains(nodeToAdd)) {
                 for (HuffmanNode node : nodes) {
                     if (node.equals(nodeToAdd)) {
-                        ((HuffmanLeafNode)node).addOne();
+                        ((HuffmanLeafNode) node).addOne();
                     }
                 }
             } else {
@@ -40,7 +44,7 @@ public class CompressHuffManCoding implements Operation {
 
         nodes = new PriorityQueue<>(nodes);
         
-        while(nodes.size() > 1) {
+        while (nodes.size() > 1) {
             HuffmanNode lower = nodes.poll();
             HuffmanNode higher = nodes.poll();
             HuffmanNode combined = new HuffmanInternalNode(lower, higher);

@@ -11,12 +11,18 @@ public class HuffmanLeafNode extends HuffmanNode {
     private int amount;
     private BitBlob compressed;
 
+    /**
+     * This represents a leaf node of a huffman tree.
+     * @param dataToCompress the uncompressed data that this node represents
+     * @param amount the times it was found in the original data.
+     */
     public HuffmanLeafNode(byte dataToCompress, int amount) {
         this.dataToCompress = dataToCompress;
         this.amount = amount;
     }
 
     /**
+     * This is the frequency of the huffman tree.
      * @return The frequency of the chunk in the uncompressed data.
      */
     @Override
@@ -28,6 +34,9 @@ public class HuffmanLeafNode extends HuffmanNode {
         return dataToCompress;
     }
     
+    /**
+     * Increments the amount of times this chunk appears in the uncompressed data.
+     */
     public void addOne() {
         amount++;
     }

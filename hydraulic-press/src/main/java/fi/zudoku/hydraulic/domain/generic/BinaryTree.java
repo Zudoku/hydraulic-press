@@ -7,6 +7,11 @@ public class BinaryTree<T> {
     
     private BinaryTreeNode<T> rootNode = null;
 
+    /**
+     * Adds a new node into the binary tree, if it is not already in the tree.
+     * @param value of the node.
+     * @param result a value that should be contained in the node.
+     */
     public void add(byte value, T result) {
         rootNode = add(rootNode, value, result);
     }
@@ -29,6 +34,11 @@ public class BinaryTree<T> {
         return current;
     }
     
+    /**
+     * Finds the result with the given value.
+     * @param value some value that matches the one given in the add method.
+     * @return found result, or null if not found.
+     */
     public T find(byte value) {
         return find(rootNode, value);
     }
@@ -41,7 +51,7 @@ public class BinaryTree<T> {
             return node.getResult();
         }
         
-        if (node.getValue() > value){
+        if (node.getValue() > value) {
             return find(node.getLeft(), value);
         } else {
             return find(node.getRight(), value);

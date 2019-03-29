@@ -6,6 +6,11 @@ public class BinaryTreeNode<T> {
     private BinaryTreeNode left;
     private BinaryTreeNode right;
  
+    /**
+     * Instance of a binary tree node. (which itself is a binary tree.)
+     * @param value of the node.
+     * @param result a value that should be contained in the node.
+     */
     public BinaryTreeNode(byte value, T result) {
         this.value = value;
         this.result = result;

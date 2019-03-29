@@ -7,6 +7,11 @@ public class HuffmanInternalNode extends HuffmanNode {
     private final HuffmanNode left;
     private final HuffmanNode right;
 
+    /**
+     * This represents an internal node of a huffman tree.
+     * @param left left node.
+     * @param right right node.
+     */
     public HuffmanInternalNode(HuffmanNode left, HuffmanNode right) {
         this.left = left;
         this.right = right;
@@ -21,7 +26,8 @@ public class HuffmanInternalNode extends HuffmanNode {
     }
 
     /**
-     * @return the combined frequency of all the child leafs
+     * This is the frequency of the huffman tree.
+     * @return the combined frequency of all the child leafs.
      */
     @Override
     public int getAmount() {

@@ -14,7 +14,11 @@ public class DecompressHuffManCoding implements Operation {
         return null;
     }
 
-    
+    /**
+     * Reads the serialized huffman tree and deserializes it into a HuffmanTree class.
+     * @param input data that contains the serialized huffman tree in the beginning.
+     * @return a complete huffman tree.
+     */
     public static HuffmanTree readHuffmanTreeFromInput(byte[] input) {
         return null;
     }

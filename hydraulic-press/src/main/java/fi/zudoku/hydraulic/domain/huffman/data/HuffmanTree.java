@@ -16,17 +16,26 @@ public class HuffmanTree {
     private final HuffmanNode rootNode;
     private BinaryTree<HuffmanLeafNode> searchTree;
 
+    /**
+     * Creates an instance of this class with the given nodes.
+     * @param rootNode the top node containing the whole tree as its children.
+     */
     public HuffmanTree(HuffmanNode rootNode) {
         this.rootNode = rootNode;
     }
     
+    /**
+     * This initializes the tree. It updates the binary search tree
+     * and calculates the compressed data for each leafnode.
+     * The tree must be initialized before usage, with this method.
+     */
     public void initialize() {
         searchTree = new BinaryTree<>();
         calculatePathForLeafNodesAndSetUpSearchTree();
     }
     /**
      * This returns the compressed bits for the given chunk of data.
-     * @param input, the uncompressed chunk of data that we want to compress
+     * @param input the uncompressed chunk of data that we want to compress
      * (the size of the chunk probably changes from byte to something else)
      * @return compressed bits 
      */
@@ -36,7 +45,9 @@ public class HuffmanTree {
     }
     
     /**
-     * Serializes the huffman tree to a format that can be read back when decompressing
+     * Serializes the huffman tree to a format that can be read back when decompressing.
+     * This can be saved to a file and read back.
+     * @return serialized byte array for this tree. 
      */
     public byte[] toCompressedData() {
         // TODO

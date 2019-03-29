@@ -18,9 +18,14 @@ public class CompressHuffManCodingTest {
     // 0 = 2 times
     // 3 = 1 times
     byte[] input = new byte[] {
-        1,1,0,1,1,0,2,2,2,3,4,4,4,4,4
+        1, 1, 0, 1, 1, 0, 2, 2, 2, 3, 4, 4, 4, 4, 4
     };
     
+    /**
+     * This test makes sure that the huffman tree nodes are valid.
+     * (internal nodes do not contain null values, 
+     * the frequency of nodes is always less than their parents)
+     */
     @Test
     public void huffmanTreeStructureIsValid() {
         HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(input);
@@ -52,19 +57,22 @@ public class CompressHuffManCodingTest {
         }
     }
     
+    /**
+     * This test makes sure that the binary tree inside huffman tree works.
+     */
     @Test
     public void huffmanTreeFindsLeafNodes() {
         HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(input);
         tree.initialize();
         
-        Assert.assertNotNull(tree.getSearchTree().find((byte)0));
-        Assert.assertNotNull(tree.getSearchTree().find((byte)1));
-        Assert.assertNotNull(tree.getSearchTree().find((byte)2));
-        Assert.assertNotNull(tree.getSearchTree().find((byte)3));
-        Assert.assertNotNull(tree.getSearchTree().find((byte)4));
-        Assert.assertNull(tree.getSearchTree().find((byte)5));
+        Assert.assertNotNull(tree.getSearchTree().find((byte) 0));
+        Assert.assertNotNull(tree.getSearchTree().find((byte) 1));
+        Assert.assertNotNull(tree.getSearchTree().find((byte) 2));
+        Assert.assertNotNull(tree.getSearchTree().find((byte) 3));
+        Assert.assertNotNull(tree.getSearchTree().find((byte) 4));
+        Assert.assertNull(tree.getSearchTree().find((byte) 5));
         
-        HuffmanLeafNode foundNode = tree.getSearchTree().find((byte)0);
-        assertEquals(foundNode.getDataToCompress(), (byte)0);
+        HuffmanLeafNode foundNode = tree.getSearchTree().find((byte) 0);
+        assertEquals(foundNode.getDataToCompress(), (byte) 0);
     }
 }
