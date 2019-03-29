@@ -4,6 +4,10 @@ import fi.zudoku.hydraulic.util.ArgumentBuilder;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 
 public class Main {
+    /**
+     * This is the main method of the whole program.
+     * @param args see *ArgumentBuilder.parseArguments*
+     */
     public static void main(String[] args) {
         
         HydraulicPressArguments arguments = ArgumentBuilder.parseArguments(args);

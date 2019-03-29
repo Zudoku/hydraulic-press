@@ -15,7 +15,7 @@ public class HydraulicPressInstance {
      * @return the result of the (de)compression
      */
     public byte[] run(HydraulicPressArguments arguments) {
-        switch(arguments.getOperation()) {
+        switch (arguments.getOperation()) {
             case COMPRESS_HUFFMAN_CODING:
                 return compressHuffman(arguments);
                 

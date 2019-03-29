@@ -1,7 +1,7 @@
 package fi.zudoku.hydraulic.domain.generic;
 
 /**
- * Binary search tree
+ * Binary search tree.
  */
 public class BinaryTree<T> {
     

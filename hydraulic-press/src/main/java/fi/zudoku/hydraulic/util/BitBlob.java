@@ -10,8 +10,16 @@ public class BitBlob {
     private int numOfBits = 0;
     private byte[] data = new byte[0];
 
+    /**
+     * Initialize a new empty bitblob.
+     */
     public BitBlob() {}
     
+    /**
+     * Initialize a new bitlob with data.
+     * @param numOfBits number of bits in this blob.
+     * @param data bits as byte array.
+     */
     private BitBlob(int numOfBits, byte[] data) {
         this.numOfBits = numOfBits;
         this.data = data;
@@ -21,7 +29,7 @@ public class BitBlob {
         return data;
     }
     /**
-     * Appends the bit '1' to the end of data
+     * Appends the bit '1' to the end of data.
      */
     public void appendOne() {
         checkIfNeedToExtendData();
@@ -42,7 +50,7 @@ public class BitBlob {
         return (byte) result;
     }
     /**
-     * Appends the bit '0' to the end of data
+     * Appends the bit '0' to the end of data.
      */
     public void appendZero() {
         checkIfNeedToExtendData();
@@ -60,10 +68,20 @@ public class BitBlob {
         }
     }
     
+    /**
+     * Copies this bitblob values to a new one.
+     * @return new instance of Bitblob with same values.
+     */
     public BitBlob copy() {
         return new BitBlob(numOfBits, data);
     }
     
+    /**
+     * appends two biblobs after each other.
+     * @param one first bitblob in sequence.
+     * @param other second bitblob in sequence.
+     * @return new Bitblob containing the two given bitblobs concatenated.
+     */
     public BitBlob append(BitBlob one, BitBlob other) {
         
         int newDataLength =  calculateDataLength(one, other);
@@ -86,7 +104,7 @@ public class BitBlob {
             unsignedFirst <<= 7 - byteCutPoint;
             int otherIndex = index - one.data.length + 1;
             byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
-            newData[index] = modifyCombinedByte((byte)unsignedFirst, second, byteCutPoint);
+            newData[index] = modifyCombinedByte((byte) unsignedFirst, second, byteCutPoint);
         }
         
         return new BitBlob(one.numOfBits + other.numOfBits, newData);

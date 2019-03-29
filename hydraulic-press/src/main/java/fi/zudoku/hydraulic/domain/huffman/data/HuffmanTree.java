@@ -25,7 +25,7 @@ public class HuffmanTree {
         calculatePathForLeafNodesAndSetUpSearchTree();
     }
     /**
-     * This returns the compressed bits for the given chunk of data
+     * This returns the compressed bits for the given chunk of data.
      * @param input, the uncompressed chunk of data that we want to compress
      * (the size of the chunk probably changes from byte to something else)
      * @return compressed bits 
