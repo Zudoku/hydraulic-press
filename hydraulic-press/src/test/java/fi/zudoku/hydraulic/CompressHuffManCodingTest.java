@@ -66,6 +66,5 @@ public class CompressHuffManCodingTest {
         
         HuffmanLeafNode foundNode = tree.getSearchTree().find((byte)0);
         assertEquals(foundNode.getDataToCompress(), (byte)0);
-        
     }
 }
