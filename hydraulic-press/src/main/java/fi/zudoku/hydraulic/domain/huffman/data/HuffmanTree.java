@@ -14,7 +14,7 @@ import fi.zudoku.hydraulic.util.BitBlob;
 public class HuffmanTree {
     
     private final HuffmanNode rootNode;
-    private BinaryTree searchTree;
+    private BinaryTree<HuffmanLeafNode> searchTree;
 
     public HuffmanTree(HuffmanNode rootNode) {
         this.rootNode = rootNode;
@@ -30,7 +30,7 @@ public class HuffmanTree {
      * @return compressed bits 
      */
     public BitBlob getCompressedBitsForByte(byte input) {
-        HuffmanLeafNode foundNode = (HuffmanLeafNode) searchTree.find(input);
+        HuffmanLeafNode foundNode = searchTree.find(input);
         return foundNode.getCompressed();
     }
     
@@ -51,6 +51,26 @@ public class HuffmanTree {
      * When we find a leaf node, we add it to the binary tree.
      */
     private void calculatePathForLeafNodesAndSetUpSearchTree() {
-        // TODO
+        travelDownNode(rootNode, new BitBlob());
+    }
+    
+    private void travelDownNode(HuffmanNode node, BitBlob bitBlob) {
+        if (node instanceof HuffmanLeafNode) {
+            HuffmanLeafNode leafNode = (HuffmanLeafNode) node;
+            leafNode.setCompressed(bitBlob.copy());
+            searchTree.add(leafNode.getDataToCompress(), leafNode);
+        } else {
+            HuffmanInternalNode internalNode = (HuffmanInternalNode) node;
+            if (internalNode.getLeft() != null) {
+                BitBlob leftBitBlob = bitBlob.copy();
+                leftBitBlob.appendZero();
+                travelDownNode(internalNode.getLeft(), leftBitBlob);
+            }
+            if (internalNode.getLeft() != null) {
+                BitBlob rightBitBlob = bitBlob.copy();
+                rightBitBlob.appendOne();
+                travelDownNode(internalNode.getRight(), rightBitBlob);
+            }
+        }
     }
 }
