@@ -38,8 +38,14 @@ public class CompressHuffManCodingTest {
         } else if (node instanceof HuffmanInternalNode) {
             HuffmanInternalNode internalNode = (HuffmanInternalNode) node;
             assertTrue(previousFrequency > internalNode.getAmount());
+            
+            assertTrue(
+                    internalNode.getAmount() == (internalNode.getLeft().getAmount() + internalNode.getRight().getAmount())
+            );
+            
             assertCorrectHuffManNode(internalNode.getLeft(), internalNode.getAmount());
             assertCorrectHuffManNode(internalNode.getRight(), internalNode.getAmount());
+            
         } else {
             assertTrue(false);
         }
