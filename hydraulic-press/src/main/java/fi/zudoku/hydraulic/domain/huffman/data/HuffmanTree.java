@@ -74,4 +74,8 @@ public class HuffmanTree {
             }
         }
     }
+
+    public HuffmanNode getRootNode() {
+        return rootNode;
+    }
 }
