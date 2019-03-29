@@ -78,4 +78,9 @@ public class HuffmanTree {
     public HuffmanNode getRootNode() {
         return rootNode;
     }
+
+    public BinaryTree<HuffmanLeafNode> getSearchTree() {
+        return searchTree;
+    }
+    
 }

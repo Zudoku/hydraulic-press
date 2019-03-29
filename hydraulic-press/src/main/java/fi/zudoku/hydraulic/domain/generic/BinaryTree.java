@@ -41,7 +41,7 @@ public class BinaryTree<T> {
             return node.getResult();
         }
         
-        if (node.getValue() < value){
+        if (node.getValue() > value){
             return find(node.getLeft(), value);
         } else {
             return find(node.getRight(), value);

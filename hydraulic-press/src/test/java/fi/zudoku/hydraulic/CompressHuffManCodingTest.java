@@ -5,6 +5,7 @@ import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -49,5 +50,22 @@ public class CompressHuffManCodingTest {
         } else {
             assertTrue(false);
         }
+    }
+    
+    @Test
+    public void huffmanTreeFindsLeafNodes() {
+        HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(input);
+        tree.initialize();
+        
+        Assert.assertNotNull(tree.getSearchTree().find((byte)0));
+        Assert.assertNotNull(tree.getSearchTree().find((byte)1));
+        Assert.assertNotNull(tree.getSearchTree().find((byte)2));
+        Assert.assertNotNull(tree.getSearchTree().find((byte)3));
+        Assert.assertNotNull(tree.getSearchTree().find((byte)4));
+        Assert.assertNull(tree.getSearchTree().find((byte)5));
+        
+        HuffmanLeafNode foundNode = tree.getSearchTree().find((byte)0);
+        assertEquals(foundNode.getDataToCompress(), (byte)0);
+        
     }
 }
