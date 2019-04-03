@@ -59,30 +59,4 @@ public class BinaryTree<T> {
             return find(node.getRight(), value);
         }
     }
-    
-    public T[] getAll(Class<T[]> type) {
-        return getChildNodes(rootNode, type);
-    }
-    
-    private T[] getChildNodes(BinaryTreeNode<T> node, Class<T[]> type) {
-        T[] leftChildren = node.getLeft() == null ? newArray(type, 0) : getChildNodes(node.getLeft(), type);
-        T[] rightChildren = node.getRight()== null ? newArray(type, 0) : getChildNodes(node.getRight(), type);
-        
-        T[] result = newArray(type, 1 + leftChildren.length + rightChildren.length);
-        
-        result[0] = node.getResult();
-        
-        //System.arraycopy(leftChildren, 0, result, 1, leftChildren.length);
-        //System.arraycopy(rightChildren, 0, result, 1 + leftChildren.length, rightChildren.length);
-        
-        System.arraycopy(rightChildren, 0, result, 1, rightChildren.length);
-        System.arraycopy(leftChildren, 0, result, 1 + rightChildren.length, leftChildren.length);
-        
-        return result;
-    }
-    
-    public static <T> T[] newArray(Class<T[]> type, int size) {
-        return type.cast(Array.newInstance(type.getComponentType(), size));
-    }
-    
 }
