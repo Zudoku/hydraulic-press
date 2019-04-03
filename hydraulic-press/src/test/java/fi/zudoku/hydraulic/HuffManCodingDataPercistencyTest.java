@@ -54,11 +54,6 @@ public class HuffManCodingDataPercistencyTest {
                 serializedTree.getCompressedBitsForByte((byte) 4).getData()
         );
         
-        Assert.assertArrayEquals(
-                originalTree.getCompressedBitsForByte((byte) 5).getData(),
-                serializedTree.getCompressedBitsForByte((byte) 5).getData()
-        );
-        
         Assert.assertArrayEquals(originalTree.toCompressedData(), serializedTree.toCompressedData());
 
     }

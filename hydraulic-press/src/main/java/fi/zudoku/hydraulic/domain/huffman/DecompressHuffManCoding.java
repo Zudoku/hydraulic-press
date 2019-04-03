@@ -20,7 +20,7 @@ public class DecompressHuffManCoding implements Operation {
      * @param input data that contains the serialized huffman tree in the beginning.
      * @return a complete huffman tree.
      */
-    private HuffmanTree readHuffmanTreeFromInput(byte[] input) {
+    public static HuffmanTree readHuffmanTreeFromInput(byte[] input) {
         return HuffmanTree.fromSerializedData(input);
     }
    
