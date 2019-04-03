@@ -29,7 +29,13 @@ public class CompressHuffManCoding implements Operation {
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
         PriorityQueue<HuffmanLeafNode> nodes = buildMinHeapFromInput(input);
         
-        return new HuffmanTree(nodes);
+        HuffmanLeafNode[] result = new HuffmanLeafNode[nodes.size()];
+        int size = nodes.size();
+        for(int i = 0; i < size; i++) {
+            result[i] = nodes.poll();
+        }
+        
+        return new HuffmanTree(result);
     }
     
     private static PriorityQueue<HuffmanLeafNode> buildMinHeapFromInput(byte[] input) {
@@ -47,6 +53,6 @@ public class CompressHuffManCoding implements Operation {
                 nodes.add(nodeToAdd);
             }
         }
-        return nodes;
+        return new PriorityQueue<>(nodes);
     }
 }

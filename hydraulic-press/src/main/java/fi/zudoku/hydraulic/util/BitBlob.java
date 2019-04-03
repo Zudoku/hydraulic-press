@@ -34,7 +34,7 @@ public class BitBlob {
     public void appendOne() {
         checkIfNeedToExtendData();
         numOfBits++;
-        int byteIndex = (numOfBits - (numOfBits % 8)) / 8;
+        int byteIndex = (int) Math.floor((numOfBits - 1) / 8);
         byte modifiedByte = appendOneToByte(data[byteIndex], numOfBits % 8);
         data[byteIndex] = modifiedByte;
     }
