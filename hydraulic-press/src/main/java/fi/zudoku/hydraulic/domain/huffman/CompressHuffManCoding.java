@@ -16,9 +16,10 @@ public class CompressHuffManCoding implements Operation {
         tree.initialize();
         
         // encode huffman tree to the beginning of the result
+        byte[] header = tree.toCompressedData();
         
         // go through input, and replace bytes from input with the huffman tree bits
-        return null;
+        return header;
     }
 
     /**

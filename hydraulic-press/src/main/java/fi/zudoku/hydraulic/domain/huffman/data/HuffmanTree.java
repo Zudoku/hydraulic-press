@@ -15,6 +15,7 @@ public class HuffmanTree {
     
     private final HuffmanNode rootNode;
     private BinaryTree<HuffmanLeafNode> searchTree;
+    private int leafNodes = 0;
 
     /**
      * Creates an instance of this class with the given nodes.
@@ -47,11 +48,34 @@ public class HuffmanTree {
     /**
      * Serializes the huffman tree to a format that can be read back when decompressing.
      * This can be saved to a file and read back.
+     * 4 first bytes = how many nodes there are
+     * dynamic bytes bytes = 1 byte for the uncompressed data, 
+     * 4 for the amount it occurs in the original data
      * @return serialized byte array for this tree. 
      */
     public byte[] toCompressedData() {
-        // TODO
-        return null;
+        int headerBytes = 4;
+        int dynamicBytes = leafNodes * (1 + 4);
+        byte[] result = new byte[headerBytes + dynamicBytes];
+        
+        result[0] = (byte) (leafNodes >> 24);
+        result[1] = (byte) (leafNodes >> 16);
+        result[2] = (byte) (leafNodes >> 8);
+        result[3] = (byte) (leafNodes );
+        
+        HuffmanLeafNode[] leafs = searchTree.getAll(HuffmanLeafNode[].class);
+        
+        for(int index = 0; index < leafs.length; index++) {
+            int resultIndex = 4 + (index * 5);
+            HuffmanLeafNode currentLeafNode = leafs[index];
+            result[resultIndex] = currentLeafNode.getDataToCompress();
+            result[resultIndex + 1] = (byte) (currentLeafNode.getAmount() >> 24);
+            result[resultIndex + 2] = (byte) (currentLeafNode.getAmount() >> 16);
+            result[resultIndex + 3] = (byte) (currentLeafNode.getAmount() >> 8);
+            result[resultIndex + 4] = (byte) (currentLeafNode.getAmount() );
+        }
+        
+        return result;
     }
    
 
@@ -63,6 +87,7 @@ public class HuffmanTree {
      * When we find a leaf node, we add it to the binary tree.
      */
     private void calculatePathForLeafNodesAndSetUpSearchTree() {
+        leafNodes = 0;
         travelDownNode(rootNode, new BitBlob());
     }
     
@@ -71,6 +96,7 @@ public class HuffmanTree {
             HuffmanLeafNode leafNode = (HuffmanLeafNode) node;
             leafNode.setCompressed(bitBlob.copy());
             searchTree.add(leafNode.getDataToCompress(), leafNode);
+            leafNodes++;
         } else {
             HuffmanInternalNode internalNode = (HuffmanInternalNode) node;
             if (internalNode.getLeft() != null) {
