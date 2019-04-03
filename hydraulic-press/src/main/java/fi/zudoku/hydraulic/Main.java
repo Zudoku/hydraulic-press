@@ -1,5 +1,6 @@
 package fi.zudoku.hydraulic;
 
+import fi.zudoku.hydraulic.domain.Operations;
 import fi.zudoku.hydraulic.util.ArgumentBuilder;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 
@@ -18,7 +19,10 @@ public class Main {
         }
         
         HydraulicPressInstance hydraulicPress = new HydraulicPressInstance();
-        hydraulicPress.run(arguments);
+        byte[] result = hydraulicPress.run(arguments);
+        
+        HydraulicPressInstance decompresshydraulicPress = new HydraulicPressInstance();
+        decompresshydraulicPress.run(new HydraulicPressArguments(Operations.DECOMPRESS_HUFFMAN_CODING, result));
     }
 }
 

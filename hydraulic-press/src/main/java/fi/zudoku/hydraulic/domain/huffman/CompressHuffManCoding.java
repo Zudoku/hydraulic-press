@@ -1,7 +1,6 @@
 package fi.zudoku.hydraulic.domain.huffman;
 
 import fi.zudoku.hydraulic.domain.Operation;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
@@ -28,31 +27,26 @@ public class CompressHuffManCoding implements Operation {
      * @return a complete HuffmanTree.
      */
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
-        PriorityQueue<HuffmanNode> nodes = new PriorityQueue<>();
+        PriorityQueue<HuffmanLeafNode> nodes = buildMinHeapFromInput(input);
+        
+        return new HuffmanTree(nodes);
+    }
+    
+    private static PriorityQueue<HuffmanLeafNode> buildMinHeapFromInput(byte[] input) {
+        PriorityQueue<HuffmanLeafNode> nodes = new PriorityQueue<>();
         for (byte data: input) {
             HuffmanLeafNode nodeToAdd = new HuffmanLeafNode(data, 1);
             
             if (nodes.contains(nodeToAdd)) {
-                for (HuffmanNode node : nodes) {
+                for (HuffmanLeafNode node : nodes) {
                     if (node.equals(nodeToAdd)) {
-                        ((HuffmanLeafNode) node).addOne();
+                        node.addOne();
                     }
                 }
             } else {
                 nodes.add(nodeToAdd);
             }
         }
-
-        nodes = new PriorityQueue<>(nodes);
-        
-        while (nodes.size() > 1) {
-            HuffmanNode lower = nodes.poll();
-            HuffmanNode higher = nodes.poll();
-            HuffmanNode combined = new HuffmanInternalNode(lower, higher);
-            nodes.add(combined);
-        }
-
-        return new HuffmanTree(nodes.poll());
+        return nodes;
     }
-   
 }

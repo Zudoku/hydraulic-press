@@ -72,8 +72,11 @@ public class BinaryTree<T> {
         
         result[0] = node.getResult();
         
-        System.arraycopy(leftChildren, 0, result, 1, leftChildren.length);
-        System.arraycopy(rightChildren, 0, result, 1 + leftChildren.length, leftChildren.length);
+        //System.arraycopy(leftChildren, 0, result, 1, leftChildren.length);
+        //System.arraycopy(rightChildren, 0, result, 1 + leftChildren.length, rightChildren.length);
+        
+        System.arraycopy(rightChildren, 0, result, 1, rightChildren.length);
+        System.arraycopy(leftChildren, 0, result, 1 + rightChildren.length, leftChildren.length);
         
         return result;
     }

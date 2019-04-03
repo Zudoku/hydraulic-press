@@ -34,6 +34,10 @@ public class HuffmanLeafNode extends HuffmanNode {
         return dataToCompress;
     }
     
+    public int getActualAmount() {
+        return amount;
+    }
+    
     /**
      * Increments the amount of times this chunk appears in the uncompressed data.
      */
