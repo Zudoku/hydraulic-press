@@ -1,10 +1,8 @@
 package fi.zudoku.hydraulic.domain.huffman.data;
 
 import fi.zudoku.hydraulic.domain.generic.BinaryTree;
-import static fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding.buildHuffmanTreeFromMinHeap;
 import fi.zudoku.hydraulic.util.BitBlob;
 import static fi.zudoku.hydraulic.util.ByteUtils.intFromByteArray;
-import java.nio.ByteBuffer;
 import java.util.PriorityQueue;
 
 /**
@@ -33,7 +31,7 @@ public class HuffmanTree {
         PriorityQueue<HuffmanLeafNode> debugNodes = new PriorityQueue<>(inputNodes);
         while (debugNodes.size() > 0) {
             HuffmanLeafNode debugNode = debugNodes.poll();
-            System.out.println(debugNode.getDataToCompress() + " == " + debugNode.getActualAmount() + " == " + debugNode.getAmount());
+            System.out.println(debugNode.getDataToCompress() + " == " + debugNode.getAmount());
         }
         System.out.println("---");
         // END DEBUG!
@@ -86,24 +84,23 @@ public class HuffmanTree {
         result[2] = (byte) (leafNodes >> 8);
         result[3] = (byte) (leafNodes );
         
-        HuffmanLeafNode[] leafs = searchTree.getAll(HuffmanLeafNode[].class);
-        
-        for(int index = 0; index < leafs.length; index++) {
+        PriorityQueue<HuffmanLeafNode> leafnodesCopy = new PriorityQueue<>(inputNodes);
+        int size = leafnodesCopy.size();
+        for (int index = 0; index < size; index++) {
             int resultIndex = 4 + (index * 5);
-            HuffmanLeafNode currentLeafNode = leafs[index];
+            HuffmanLeafNode currentLeafNode = leafnodesCopy.poll();
             result[resultIndex] = currentLeafNode.getDataToCompress();
-            result[resultIndex + 1] = (byte) (currentLeafNode.getActualAmount() >> 24);
-            result[resultIndex + 2] = (byte) (currentLeafNode.getActualAmount() >> 16);
-            result[resultIndex + 3] = (byte) (currentLeafNode.getActualAmount() >> 8);
-            result[resultIndex + 4] = (byte) (currentLeafNode.getActualAmount() );
+            result[resultIndex + 1] = (byte) (currentLeafNode.getAmount() >> 24);
+            result[resultIndex + 2] = (byte) (currentLeafNode.getAmount() >> 16);
+            result[resultIndex + 3] = (byte) (currentLeafNode.getAmount() >> 8);
+            result[resultIndex + 4] = (byte) (currentLeafNode.getAmount() );
         }
-        
         return result;
     }
     
     public static HuffmanTree fromSerializedData(byte[] input) {
         int nodeAmount = intFromByteArray(input, 0);
-        PriorityQueue<HuffmanNode> nodes = new PriorityQueue<>();
+        PriorityQueue<HuffmanLeafNode> nodes = new PriorityQueue<>();
         
         for(int index = 0; index < nodeAmount; index++) {
             int inputIndex = 4 + (index * 5);
@@ -113,7 +110,7 @@ public class HuffmanTree {
             nodes.add(newNode);
         }
         
-        return buildHuffmanTreeFromMinHeap(nodes);
+        return new HuffmanTree(nodes);
     }
    
 
