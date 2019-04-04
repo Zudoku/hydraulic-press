@@ -42,11 +42,11 @@ public class HuffmanLeafNode extends HuffmanNode {
     }
 
     public BitBlob getCompressed() {
-        return compressed;
+        return compressed.copy();
     }
 
     public void setCompressed(BitBlob compressed) {
-        this.compressed = compressed;
+        this.compressed = compressed.copy();
     }
     
     @Override

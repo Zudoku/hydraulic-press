@@ -21,23 +21,29 @@ public class DecompressHuffManCoding implements Operation {
         HuffmanNode currentNode = tree.getRootNode();
         byte[] result = new byte[0];
         for (int index = firstByte; index < input.length; index++) {
-            byte byteToHandle = input[index];
+            int byteToHandle = input[index] & 0xFF;
             
             for (byte bit = 0; bit < 8;bit++) {
-                byte path = (byte) (byteToHandle << bit);
+                int path = byteToHandle;
+                path <<= 7 - bit;
+                path <<= 24;
+                path >>>= 24;
+                path >>>= 7; 
                 HuffmanNode nextNode = travelDownNode(path, currentNode);
                 if (nextNode instanceof HuffmanLeafNode) {
                     HuffmanLeafNode foundLeafNode = (HuffmanLeafNode) nextNode;
                     result = growByteArrayWithOne(result);
                     result[result.length - 1] = foundLeafNode.getDataToCompress();
                     currentNode = tree.getRootNode();
+                } else {
+                    currentNode = nextNode;
                 }
             }
         }
         return result;
     }
     
-    private HuffmanNode travelDownNode(byte path, HuffmanNode currentNode){
+    private HuffmanNode travelDownNode(int path, HuffmanNode currentNode){
         //check if current node is leafnode (it is the only node of the tree)
         if (currentNode instanceof HuffmanLeafNode) {
             return currentNode;

@@ -22,7 +22,8 @@ public class BitBlob {
      */
     private BitBlob(int numOfBits, byte[] data) {
         this.numOfBits = numOfBits;
-        this.data = data;
+        this.data = new byte[data.length];
+        System.arraycopy(data, 0, this.data, 0, data.length);
     }
 
     public byte[] getData() {

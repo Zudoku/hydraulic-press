@@ -21,7 +21,8 @@ public class CompressHuffManCoding implements Operation {
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
         for(byte b: input) {
-            compressedData = BitBlob.append(compressedData, tree.getCompressedBitsForByte(b));
+            BitBlob compressed = tree.getCompressedBitsForByte(b);
+            compressedData = BitBlob.append(compressedData, compressed);
         }
         // Combine header and compressed part
         byte[] result = new byte[header.length + compressedData.getData().length];

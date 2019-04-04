@@ -65,7 +65,7 @@ public class HuffmanTree {
      */
     public BitBlob getCompressedBitsForByte(byte input) {
         HuffmanLeafNode foundNode = searchTree.find(input);
-        return foundNode.getCompressed();
+        return foundNode.getCompressed().copy();
     }
     
     /**
@@ -140,7 +140,7 @@ public class HuffmanTree {
                 leftBitBlob.appendZero();
                 travelDownNode(internalNode.getLeft(), leftBitBlob);
             }
-            if (internalNode.getLeft() != null) {
+            if (internalNode.getRight()!= null) {
                 BitBlob rightBitBlob = bitBlob.copy();
                 rightBitBlob.appendOne();
                 travelDownNode(internalNode.getRight(), rightBitBlob);

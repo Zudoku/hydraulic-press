@@ -1,6 +1,5 @@
 package fi.zudoku.hydraulic.domain.generic;
 
-import java.lang.reflect.Array;
 
 /**
  * Binary search tree.
