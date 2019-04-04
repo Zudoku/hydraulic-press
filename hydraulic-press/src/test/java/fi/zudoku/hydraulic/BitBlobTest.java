@@ -28,12 +28,6 @@ public class BitBlobTest {
     
     @Test
     public void BitBlobSimpleAppendTest() {
-        
-        for (int i = 127; i < 256; i++) {
-            byte r = (byte) i;
-            System.out.println(r);
-        }
-        
         BitBlob first = new BitBlob();
         BitBlob second = new BitBlob();
         

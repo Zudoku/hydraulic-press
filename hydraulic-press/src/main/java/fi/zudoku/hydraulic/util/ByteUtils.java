@@ -15,4 +15,11 @@ public class ByteUtils {
     public static int intFromByteArray(byte[] bytes, int i) {
         return bytes[i] << 24 | (bytes[i + 1] & 0xFF) << 16 | (bytes[i + 2] & 0xFF) << 8 | (bytes[i + 3] & 0xFF);
     }
+    
+    public static byte[] growByteArrayWithOne(byte[] bytes) {
+        byte[] newData = new byte[bytes.length + 1];
+        // IS THIS ALLOWED?
+        System.arraycopy(bytes, 0, newData, 0, bytes.length);
+        return newData;
+    }
 }

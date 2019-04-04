@@ -93,13 +93,17 @@ public class BitBlob {
         }
         // Go through second array
         for (int index = one.data.length; index < newDataLength; index++) {
-            // get the value that we are now modifying
-            int unsignedFirst = other.data[index - one.data.length] & 0xFF;
-            //Shift them if needed with the next byte
-            unsignedFirst <<= 7 - byteCutPoint;
-            int otherIndex = index - one.data.length + 1;
-            byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
-            newData[index] = modifyCombinedByte((byte) unsignedFirst, second, byteCutPoint);
+            if (byteCutPoint != 0) {
+                // get the value that we are now modifying
+                int unsignedFirst = other.data[index - one.data.length] & 0xFF;
+                //Shift them with the next byte
+                unsignedFirst <<= 7 - byteCutPoint;
+                int otherIndex = index - one.data.length + 1;
+                byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
+                newData[index] = modifyCombinedByte((byte) unsignedFirst, second, byteCutPoint);
+            } else {
+                newData[index] = other.data[index - one.data.length];
+            }
         }
         
         return new BitBlob(one.numOfBits + other.numOfBits, newData);
@@ -109,10 +113,8 @@ public class BitBlob {
         int length  = one.data.length + other.data.length;
         int leftOverBits = (one.numOfBits % 8) + (other.numOfBits % 8);
         boolean bothBytesAreIncomplete = (one.numOfBits % 8 != 0) && (other.numOfBits % 8 != 0);
-        if (leftOverBits < 8 && bothBytesAreIncomplete) {
+        if (leftOverBits <= 8 && bothBytesAreIncomplete) {
             length -= 1;
-        } else if (leftOverBits > 8) {
-            length += 1;
         }
         return length;
     }
