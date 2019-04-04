@@ -22,12 +22,18 @@ public class BitBlobTest {
         BitBlob first = new BitBlob();
         
         first.appendOne();
-        byte result = -128;
+        byte result = -128; // 1000 0000
         Assert.assertTrue(first.getData()[0] == result);
     }
     
     @Test
     public void BitBlobSimpleAppendTest() {
+        
+        for (int i = 127; i < 256; i++) {
+            byte r = (byte) i;
+            System.out.println(r);
+        }
+        
         BitBlob first = new BitBlob();
         BitBlob second = new BitBlob();
         
@@ -36,9 +42,9 @@ public class BitBlobTest {
         second.appendZero();
         second.appendOne();
         
-        BitBlob third = BitBlob.append(first, second);
-        byte result = -112;
-        Assert.assertTrue(third.getData()[0] == result);
+        BitBlob bitBlob = BitBlob.append(first, second);
+        byte result = -48; // 1101 0000
+        Assert.assertTrue(bitBlob.getData()[0] == result);
     }
     
     
