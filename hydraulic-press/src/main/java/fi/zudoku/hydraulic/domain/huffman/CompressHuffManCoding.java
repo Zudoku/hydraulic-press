@@ -4,6 +4,7 @@ import fi.zudoku.hydraulic.domain.Operation;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import fi.zudoku.hydraulic.util.BitBlob;
 import java.util.PriorityQueue;
 
 public class CompressHuffManCoding implements Operation {
@@ -18,7 +19,16 @@ public class CompressHuffManCoding implements Operation {
         byte[] header = tree.toCompressedData();
         
         // go through input, and replace bytes from input with the huffman tree bits
-        return header;
+        BitBlob compressedData = new BitBlob();
+        for(byte b: input) {
+            compressedData = BitBlob.append(compressedData, tree.getCompressedBitsForByte(b));
+        }
+        // Combine header and compressed part
+        byte[] result = new byte[header.length + compressedData.getData().length];
+        System.arraycopy(header, 0, result, 0, header.length);
+        System.arraycopy(compressedData.getData(), 0, result, header.length, compressedData.getData().length);
+        
+        return result;
     }
 
     /**

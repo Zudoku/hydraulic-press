@@ -31,7 +31,7 @@ public class HuffManCodingDataPercistencyTest {
      */
     @Test
     public void huffmanTreeSerilizationWorks() {
-        //assertTreeIsSerializedRight(input1);
+        assertTreeIsSerializedRight(input1);
         assertTreeIsSerializedRight(input2);
     }
     

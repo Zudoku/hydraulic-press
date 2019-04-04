@@ -45,7 +45,7 @@ public class BitBlob {
             unsignedInput += 127;
         }
         int mask = 1;
-        mask <<= 7 - index;
+        mask <<= 8 - index;
         int result = (unsignedInput | mask);
         return (byte) result;
     }
@@ -82,25 +82,27 @@ public class BitBlob {
      * @param other second bitblob in sequence.
      * @return new Bitblob containing the two given bitblobs concatenated.
      */
-    public BitBlob append(BitBlob one, BitBlob other) {
+    public static BitBlob append(BitBlob one, BitBlob other) {
         
         int newDataLength =  calculateDataLength(one, other);
-        
+        //Copy the first part to the new array
         byte[] newData = new byte[newDataLength];
         System.arraycopy(one.data, 0, newData, 0, one.data.length);
-        
+        // Calculate, if last byte is missing bits
         int byteCutPoint = one.numOfBits % 8;
-        
+        // if so, add missing bits from the second array
         if (byteCutPoint != 0) {
             newData[one.data.length - 1] = modifyCombinedByte(newData[one.data.length - 1], other.data[0], byteCutPoint);
         }
-        
+        // Go through second array
         for (int index = one.data.length; index < newDataLength; index++) {
+            // get the value that we are now modifying
             int unsignedFirst = other.data[index - one.data.length];
-            
+            // make it unsigned
             if (unsignedFirst < 0) {
                 unsignedFirst += 127;
             }
+            //Shift them if needed with the next byte
             unsignedFirst <<= 7 - byteCutPoint;
             int otherIndex = index - one.data.length + 1;
             byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
@@ -110,7 +112,7 @@ public class BitBlob {
         return new BitBlob(one.numOfBits + other.numOfBits, newData);
     }
     
-    private int calculateDataLength(BitBlob one, BitBlob other) {
+    private static int calculateDataLength(BitBlob one, BitBlob other) {
         int length  = one.data.length + other.data.length;
         int leftOverBits = (one.numOfBits % 8) + (other.numOfBits % 8);
         if (leftOverBits < 8) {
@@ -121,7 +123,7 @@ public class BitBlob {
         return length;
     }
 
-    private byte modifyCombinedByte(byte one, byte other, int otherCutPoint) {
+    private static byte modifyCombinedByte(byte one, byte other, int otherCutPoint) {
         int unsigned = one;
         if (unsigned < 0) {
             unsigned += 127;
