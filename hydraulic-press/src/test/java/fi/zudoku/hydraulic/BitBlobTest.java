@@ -32,10 +32,13 @@ public class BitBlobTest {
         BitBlob second = new BitBlob();
         
         first.appendOne();
+        first.appendOne();
+        second.appendZero();
+        second.appendOne();
         
-        
-        BitBlob result = BitBlob.append(first, second);
-        result.copy();
+        BitBlob third = BitBlob.append(first, second);
+        byte result = -112;
+        Assert.assertTrue(third.getData()[0] == result);
     }
     
     

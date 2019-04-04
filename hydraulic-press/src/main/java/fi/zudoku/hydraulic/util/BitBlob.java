@@ -40,10 +40,7 @@ public class BitBlob {
     }
     
     private byte appendOneToByte(byte input, int index) {
-        int unsignedInput = input;
-        if (unsignedInput < 0) {
-            unsignedInput += 127;
-        }
+        int unsignedInput = input & 0xFF;
         int mask = 1;
         mask <<= 8 - index;
         int result = (unsignedInput | mask);
@@ -92,16 +89,12 @@ public class BitBlob {
         int byteCutPoint = one.numOfBits % 8;
         // if so, add missing bits from the second array
         if (byteCutPoint != 0) {
-            newData[one.data.length - 1] = modifyCombinedByte(newData[one.data.length - 1], other.data[0], byteCutPoint);
+            newData[one.data.length - 1] = modifyCombinedByte(newData[one.data.length - 1], (other.data.length > 0) ? other.data[0] : 0, byteCutPoint);
         }
         // Go through second array
         for (int index = one.data.length; index < newDataLength; index++) {
             // get the value that we are now modifying
-            int unsignedFirst = other.data[index - one.data.length];
-            // make it unsigned
-            if (unsignedFirst < 0) {
-                unsignedFirst += 127;
-            }
+            int unsignedFirst = other.data[index - one.data.length] & 0xFF;
             //Shift them if needed with the next byte
             unsignedFirst <<= 7 - byteCutPoint;
             int otherIndex = index - one.data.length + 1;
@@ -115,7 +108,8 @@ public class BitBlob {
     private static int calculateDataLength(BitBlob one, BitBlob other) {
         int length  = one.data.length + other.data.length;
         int leftOverBits = (one.numOfBits % 8) + (other.numOfBits % 8);
-        if (leftOverBits < 8) {
+        boolean bothBytesAreIncomplete = (one.numOfBits % 8 != 0) && (other.numOfBits % 8 != 0);
+        if (leftOverBits < 8 && bothBytesAreIncomplete) {
             length -= 1;
         } else if (leftOverBits > 8) {
             length += 1;
@@ -124,15 +118,9 @@ public class BitBlob {
     }
 
     private static byte modifyCombinedByte(byte one, byte other, int otherCutPoint) {
-        int unsigned = one;
-        if (unsigned < 0) {
-            unsigned += 127;
-        }
+        int unsigned = one & 0xFF;
         
-        int otherUnsigned = other;
-        if (otherUnsigned < 0) {
-            otherUnsigned += 127;
-        }
+        int otherUnsigned = other & 0xFF;
         
         otherUnsigned >>>= otherCutPoint;
         
