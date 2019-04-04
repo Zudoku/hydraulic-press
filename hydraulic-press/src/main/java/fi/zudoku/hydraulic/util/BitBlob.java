@@ -28,6 +28,11 @@ public class BitBlob {
     public byte[] getData() {
         return data.clone();
     }
+
+    public int getNumOfBits() {
+        return numOfBits;
+    }
+
     /**
      * Appends the bit '1' to the end of data.
      */
@@ -35,7 +40,8 @@ public class BitBlob {
         checkIfNeedToExtendData();
         numOfBits++;
         int byteIndex = (int) Math.floor((numOfBits - 1) / 8);
-        byte modifiedByte = appendOneToByte(data[byteIndex], numOfBits % 8);
+        int bitIndex = numOfBits % 8 == 0 ? 8 : numOfBits % 8; 
+        byte modifiedByte = appendOneToByte(data[byteIndex], bitIndex);
         data[byteIndex] = modifiedByte;
     }
     

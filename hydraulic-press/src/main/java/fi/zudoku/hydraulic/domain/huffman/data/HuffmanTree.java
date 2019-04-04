@@ -142,6 +142,9 @@ public class HuffmanTree {
             }
             if (internalNode.getRight()!= null) {
                 BitBlob rightBitBlob = bitBlob.copy();
+                if (rightBitBlob.getNumOfBits() == 7) {
+                    System.out.println("");
+                }
                 rightBitBlob.appendOne();
                 travelDownNode(internalNode.getRight(), rightBitBlob);
             }

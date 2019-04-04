@@ -26,6 +26,13 @@ public class Main {
         byte[] result2 = decompresshydraulicPress.run(new HydraulicPressArguments(Operations.DECOMPRESS_HUFFMAN_CODING, result));
         
         
+        for (int i = 0; i < arguments.getData().length; i++) {
+            if (arguments.getData()[i] != result2[i]) {
+                System.out.println("BYTE " + i + " DIFFERS FROM ORIGINAL DATA");
+                System.out.println(arguments.getData()[i] + " VS " + result2[i]);
+            }
+        }
+        
         System.out.println("RESULTS");
         System.out.println("original: " + arguments.getData().length + "\n" + new String(arguments.getData(), StandardCharsets.UTF_8));
         System.out.println("----");
