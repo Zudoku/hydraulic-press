@@ -41,6 +41,14 @@ public class BitBlobTest {
         Assert.assertTrue(bitBlob.getData()[0] == result);
     }
     
+    @Test
+    public void BitBlobSimpleAppendOneTaest() {
+        BitBlob first = new BitBlob(30, new byte[] {0, -86, 85, -4});
+        BitBlob second = new BitBlob(3, new byte[] {-32});
+        
+        BitBlob.append(first, second);
+    }
+    
     
     
 }

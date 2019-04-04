@@ -20,14 +20,13 @@ public class BitBlob {
      * @param numOfBits number of bits in this blob.
      * @param data bits as byte array.
      */
-    private BitBlob(int numOfBits, byte[] data) {
+    public BitBlob(int numOfBits, byte[] data) {
         this.numOfBits = numOfBits;
-        this.data = new byte[data.length];
-        System.arraycopy(data, 0, this.data, 0, data.length);
+        this.data = data.clone();
     }
 
     public byte[] getData() {
-        return data;
+        return data.clone();
     }
     /**
      * Appends the bit '1' to the end of data.
@@ -98,7 +97,7 @@ public class BitBlob {
                 // get the value that we are now modifying
                 int unsignedFirst = other.data[index - one.data.length] & 0xFF;
                 //Shift them with the next byte
-                unsignedFirst <<= 7 - byteCutPoint;
+                unsignedFirst <<= 8 - byteCutPoint;
                 int otherIndex = index - one.data.length + 1;
                 byte second = (other.data.length > otherIndex) ? other.data[otherIndex] : 0;
                 newData[index] = modifyCombinedByte((byte) unsignedFirst, second, byteCutPoint);
