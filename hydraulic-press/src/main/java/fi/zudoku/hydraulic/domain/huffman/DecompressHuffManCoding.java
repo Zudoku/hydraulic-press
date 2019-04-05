@@ -5,6 +5,8 @@ import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
 import static fi.zudoku.hydraulic.util.ByteUtils.growByteArrayWithOne;
 import static fi.zudoku.hydraulic.util.ByteUtils.intFromByteArray;
 
@@ -17,7 +19,8 @@ public class DecompressHuffManCoding implements Operation {
         tree.initialize();
         
         // go through input, and transform the compressed data to uncompressed using huffman tree
-        int firstByte = (intFromByteArray(input, 0) * 5) + 4;
+        int chunks = intFromByteArray(input, 0);
+        int firstByte = (chunks * DYNAMIC_CHUNK_SIZE) + HEADER_BYTES;
         HuffmanNode currentNode = tree.getRootNode();
         byte[] result = new byte[0];
         for (int index = firstByte; index < input.length; index++) {

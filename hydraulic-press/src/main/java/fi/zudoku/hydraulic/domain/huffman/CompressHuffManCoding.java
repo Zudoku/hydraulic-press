@@ -15,15 +15,16 @@ public class CompressHuffManCoding implements Operation {
         HuffmanTree tree = buildHuffmanTreeFromInput(input);
         tree.initialize();
         
-        // encode huffman tree to the beginning of the result
-        byte[] header = tree.toCompressedData();
-        
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
         for(byte b: input) {
             BitBlob compressed = tree.getCompressedBitsForByte(b);
             compressedData = BitBlob.append(compressedData, compressed);
         }
+        
+        // encode huffman tree (and other needed info) to the beginning of the result
+        byte[] header = tree.toCompressedData(compressedData);
+        
         // Combine header and compressed part
         byte[] result = new byte[header.length + compressedData.getData().length];
         System.arraycopy(header, 0, result, 0, header.length);

@@ -15,6 +15,10 @@ import java.util.PriorityQueue;
  */
 public class HuffmanTree {
     
+    public static final int HEADER_BYTES = 5;
+    public static final int DYNAMIC_CHUNK_SIZE =  1 + 4;
+    
+    
     private final HuffmanNode rootNode;
     private BinaryTree<HuffmanLeafNode> searchTree;
     private final HuffmanLeafNode[] inputNodes;
@@ -67,21 +71,22 @@ public class HuffmanTree {
      * 4 first bytes = how many nodes there are
      * dynamic bytes bytes = 1 byte for the uncompressed data, 
      * 4 for the amount it occurs in the original data
+     * @param compressedData
      * @return serialized byte array for this tree. 
      */
-    public byte[] toCompressedData() {
-        int headerBytes = 4;
-        int dynamicBytes = getLeafNodeAmount() * (1 + 4);
-        byte[] result = new byte[headerBytes + dynamicBytes];
+    public byte[] toCompressedData(BitBlob compressedData) {
+        int dynamicBytes = getLeafNodeAmount() * DYNAMIC_CHUNK_SIZE;
+        byte[] result = new byte[HEADER_BYTES + dynamicBytes];
         
         result[0] = (byte) (getLeafNodeAmount() >> 24);
         result[1] = (byte) (getLeafNodeAmount() >> 16);
         result[2] = (byte) (getLeafNodeAmount() >> 8);
         result[3] = (byte) (getLeafNodeAmount() );
+        result[4] = (byte) (compressedData.getNumOfBits() % 8);
 
 
         for (int index = 0; index < inputNodes.length; index++) {
-            int resultIndex = 4 + (index * 5);
+            int resultIndex = HEADER_BYTES + (index * 5);
             HuffmanLeafNode currentLeafNode = inputNodes[index];
             result[resultIndex] = currentLeafNode.getDataToCompress();
             result[resultIndex + 1] = (byte) (currentLeafNode.getAmount() >> 24);
@@ -93,11 +98,11 @@ public class HuffmanTree {
     }
     
     public static HuffmanTree fromSerializedData(byte[] input) {
-        int nodeAmount = intFromByteArray(input, 0);
-        HuffmanLeafNode[] nodes = new HuffmanLeafNode[nodeAmount];
+        int chunks = intFromByteArray(input, 0);
+        HuffmanLeafNode[] nodes = new HuffmanLeafNode[chunks];
         
-        for(int index = 0; index < nodeAmount; index++) {
-            int inputIndex = 4 + (index * 5);
+        for(int index = 0; index < chunks; index++) {
+            int inputIndex = HEADER_BYTES + (index * DYNAMIC_CHUNK_SIZE);
             byte dataToCompress = input[inputIndex];
             int nodeFrequency = intFromByteArray(input, inputIndex + 1);
             HuffmanLeafNode newNode = new HuffmanLeafNode(dataToCompress, nodeFrequency);
