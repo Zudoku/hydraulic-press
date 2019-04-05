@@ -3,6 +3,7 @@ package fi.zudoku.hydraulic.domain.huffman.data;
 import fi.zudoku.hydraulic.domain.generic.BinaryTree;
 import fi.zudoku.hydraulic.util.BitBlob;
 import static fi.zudoku.hydraulic.util.ByteUtils.intFromByteArray;
+import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
 import java.util.PriorityQueue;
 
 /**
@@ -78,21 +79,16 @@ public class HuffmanTree {
         int dynamicBytes = getLeafNodeAmount() * DYNAMIC_CHUNK_SIZE;
         byte[] result = new byte[HEADER_BYTES + dynamicBytes];
         
-        result[0] = (byte) (getLeafNodeAmount() >> 24);
-        result[1] = (byte) (getLeafNodeAmount() >> 16);
-        result[2] = (byte) (getLeafNodeAmount() >> 8);
-        result[3] = (byte) (getLeafNodeAmount() );
+        result = putIntegerIntoByteArray(result, getLeafNodeAmount(), 0);
         result[4] = (byte) (compressedData.getNumOfBits() % 8);
 
 
         for (int index = 0; index < inputNodes.length; index++) {
             int resultIndex = HEADER_BYTES + (index * 5);
             HuffmanLeafNode currentLeafNode = inputNodes[index];
+            
             result[resultIndex] = currentLeafNode.getDataToCompress();
-            result[resultIndex + 1] = (byte) (currentLeafNode.getAmount() >> 24);
-            result[resultIndex + 2] = (byte) (currentLeafNode.getAmount() >> 16);
-            result[resultIndex + 3] = (byte) (currentLeafNode.getAmount() >> 8);
-            result[resultIndex + 4] = (byte) (currentLeafNode.getAmount() );
+            result = putIntegerIntoByteArray(result, currentLeafNode.getAmount(), resultIndex + 1);
         }
         return result;
     }

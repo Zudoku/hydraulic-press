@@ -22,4 +22,12 @@ public class ByteUtils {
         System.arraycopy(bytes, 0, newData, 0, bytes.length);
         return newData;
     }
+    
+    public static byte[] putIntegerIntoByteArray(byte[] bytes, int number, int index) {
+        bytes[index] = (byte) (number >> 24);
+        bytes[index + 1] = (byte) (number >> 16);
+        bytes[index + 2] = (byte) (number >> 8);
+        bytes[index + 3] = (byte) (number );
+        return bytes;
+    }
 }
