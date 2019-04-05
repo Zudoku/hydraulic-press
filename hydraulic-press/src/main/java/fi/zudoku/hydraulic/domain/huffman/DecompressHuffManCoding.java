@@ -21,23 +21,18 @@ public class DecompressHuffManCoding implements Operation {
         int chunks = intFromByteArray(input, 0);
         byte byteCutOff = input[4];
         int firstByte = (chunks * DYNAMIC_CHUNK_SIZE) + HEADER_BYTES;
+        
         HuffmanNode currentNode = tree.getRootNode();
         byte[] result = new byte[0];
         for (int index = firstByte; index < input.length; index++) {
             byte byteToHandle = input[index];
             
-            for (byte bit = 0; bit < 8;bit++) {
-                
-                if (index == input.length - 1 && bit >= byteCutOff) {
+            for (byte bit = 0; bit < 8; bit++) {
+                if (goneOverByteCutOff(index, input.length, bit, byteCutOff)) {
                     continue;
                 }
                 
-                int path = byteToHandle & 0xFF;
-                path >>= 7 - bit;
-                path <<= 7;
-                byte r = (byte) path;
-                path = r & 0xFF;
-                path >>= 7;
+                int path = calculatePath(byteToHandle, bit);
                 HuffmanNode nextNode = travelDownNode((byte) path, currentNode);
                 if (nextNode instanceof HuffmanLeafNode) {
                     HuffmanLeafNode foundLeafNode = (HuffmanLeafNode) nextNode;
@@ -52,7 +47,17 @@ public class DecompressHuffManCoding implements Operation {
         return result;
     }
     
-    private HuffmanNode travelDownNode(byte path, HuffmanNode currentNode){
+    private int calculatePath(byte byteToHandle, int bit) {
+        int path = byteToHandle & 0xFF;
+        path >>= 7 - bit;
+        path <<= 7;
+        byte r = (byte) path;
+        path = r & 0xFF;
+        path >>= 7;
+        return path;
+    }
+    
+    private HuffmanNode travelDownNode(byte path, HuffmanNode currentNode) {
         //check if current node is leafnode (it is the only node of the tree)
         if (currentNode instanceof HuffmanLeafNode) {
             return currentNode;
@@ -76,7 +81,7 @@ public class DecompressHuffManCoding implements Operation {
         int chunks = intFromByteArray(input, 0);
         HuffmanLeafNode[] nodes = new HuffmanLeafNode[chunks];
         
-        for(int index = 0; index < chunks; index++) {
+        for (int index = 0; index < chunks; index++) {
             int inputIndex = HEADER_BYTES + (index * DYNAMIC_CHUNK_SIZE);
             byte dataToCompress = input[inputIndex];
             int nodeFrequency = intFromByteArray(input, inputIndex + 1);
@@ -84,6 +89,10 @@ public class DecompressHuffManCoding implements Operation {
             nodes[index] = newNode;
         }
         return new HuffmanTree(nodes);
+    }
+
+    private boolean goneOverByteCutOff(int index, int length, byte bit, byte byteCutOff) {
+        return index == length - 1 && bit > byteCutOff;
     }
    
 }

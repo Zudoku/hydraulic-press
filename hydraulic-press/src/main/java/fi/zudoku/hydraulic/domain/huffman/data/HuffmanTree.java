@@ -79,7 +79,7 @@ public class HuffmanTree {
                 leftBitBlob.appendZero();
                 travelDownNode(internalNode.getLeft(), leftBitBlob);
             }
-            if (internalNode.getRight()!= null) {
+            if (internalNode.getRight() != null) {
                 BitBlob rightBitBlob = bitBlob.copy();
                 rightBitBlob.appendOne();
                 travelDownNode(internalNode.getRight(), rightBitBlob);

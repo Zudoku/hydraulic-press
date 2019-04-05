@@ -3,6 +3,7 @@ package fi.zudoku.hydraulic.domain.huffman;
 import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.huffman.DecompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import fi.zudoku.hydraulic.util.BitBlob;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,12 +38,10 @@ public class HuffManCodingDataPercistencyTest {
     
     private void assertTreeIsSerializedRight(byte[] data) {
         HuffmanTree originalTree = CompressHuffManCoding.buildHuffmanTreeFromInput(data);
-        originalTree.initialize();
         
-        byte[] result = originalTree.toCompressedData();
+        byte[] result = CompressHuffManCoding.serializeHuffmanTree(originalTree, new BitBlob());
         
-        HuffmanTree serializedTree = DecompressHuffManCoding.readHuffmanTreeFromInput(result);
-        serializedTree.initialize();
+        HuffmanTree serializedTree = DecompressHuffManCoding.deserializeHuffmanTree(result);
         
         for (byte i : data) {
             Assert.assertArrayEquals(
@@ -51,6 +50,9 @@ public class HuffManCodingDataPercistencyTest {
             );
         }
 
-        Assert.assertArrayEquals(originalTree.toCompressedData(), serializedTree.toCompressedData());
+        Assert.assertArrayEquals(
+                CompressHuffManCoding.serializeHuffmanTree(originalTree, new BitBlob()), 
+                CompressHuffManCoding.serializeHuffmanTree(serializedTree, new BitBlob())
+        );
     }
 }

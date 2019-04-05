@@ -1,13 +1,11 @@
 package fi.zudoku.hydraulic.domain.huffman;
 
-import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
+import static fi.zudoku.hydraulic.util.ByteUtils.intFromByteArray;
+import java.util.HashMap;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class CompressHuffManCodingTest {
@@ -21,58 +19,35 @@ public class CompressHuffManCodingTest {
         1, 1, 0, 1, 1, 0, 2, 2, 2, 3, 4, 4, 4, 4, 4
     };
     
-    /**
-     * This test makes sure that the huffman tree nodes are valid.
-     * (internal nodes do not contain null values, 
-     * the frequency of nodes is always less than their parents)
-     */
     @Test
-    public void huffmanTreeStructureIsValid() {
-        HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(input);
-        tree.initialize();
+    public void testTreeIsSerializedTheRightWay() {
+        byte[] testInput = input;
+        HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(testInput);
         
-        HuffmanInternalNode rootNode = (HuffmanInternalNode) tree.getRootNode();
+        CompressHuffManCoding compressHuffmanCoding = new CompressHuffManCoding();
         
-        assertCorrectHuffManNode(rootNode, Integer.MAX_VALUE);
+        byte[] result = compressHuffmanCoding.execute(testInput);
         
-    }
-    
-    private void assertCorrectHuffManNode(HuffmanNode node, int previousFrequency) {
-        if (node instanceof HuffmanLeafNode) {
-            HuffmanLeafNode leafNode = (HuffmanLeafNode) node;
-            assertTrue(previousFrequency > leafNode.getAmount());
-        } else if (node instanceof HuffmanInternalNode) {
-            HuffmanInternalNode internalNode = (HuffmanInternalNode) node;
-            assertTrue(previousFrequency > internalNode.getAmount());
-            
-            assertTrue(
-                    internalNode.getAmount() == (internalNode.getLeft().getAmount() + internalNode.getRight().getAmount())
-            );
-            
-            assertCorrectHuffManNode(internalNode.getLeft(), internalNode.getAmount());
-            assertCorrectHuffManNode(internalNode.getRight(), internalNode.getAmount());
-            
-        } else {
-            assertTrue(false);
+        int chunks = intFromByteArray(result, 0);
+        byte byteCutOff = result[4];
+        // Check headers
+        Assert.assertEquals(chunks, tree.getLeafNodeAmount());
+        Assert.assertEquals(1, byteCutOff); // calculated by hand
+        
+        HashMap<Byte, Integer> results = new HashMap<>();
+        // check dynamic headers
+        for (int index = 0; index < tree.getLeafNodeAmount(); index++) {
+            int resultIndex = HEADER_BYTES + (index * DYNAMIC_CHUNK_SIZE);
+            byte dataToCompress = result[resultIndex];
+            int nodeFrequency = intFromByteArray(result, resultIndex + 1);
+            // Check that it is unique
+            Assert.assertFalse(results.containsKey(dataToCompress));
+            results.put(byteCutOff, nodeFrequency);
+            // Check that it is the same order as in tree
+            Assert.assertEquals(dataToCompress, tree.getInputNodes()[index].getDataToCompress());
+
         }
+        
     }
     
-    /**
-     * This test makes sure that the binary tree inside huffman tree works.
-     */
-    @Test
-    public void huffmanTreeFindsLeafNodes() {
-        HuffmanTree tree = CompressHuffManCoding.buildHuffmanTreeFromInput(input);
-        tree.initialize();
-        
-        Assert.assertNotNull(tree.getSearchTree().find((byte) 0));
-        Assert.assertNotNull(tree.getSearchTree().find((byte) 1));
-        Assert.assertNotNull(tree.getSearchTree().find((byte) 2));
-        Assert.assertNotNull(tree.getSearchTree().find((byte) 3));
-        Assert.assertNotNull(tree.getSearchTree().find((byte) 4));
-        Assert.assertNull(tree.getSearchTree().find((byte) 5));
-        
-        HuffmanLeafNode foundNode = tree.getSearchTree().find((byte) 0);
-        assertEquals(foundNode.getDataToCompress(), (byte) 0);
-    }
 }

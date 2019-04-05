@@ -18,7 +18,7 @@ public class CompressHuffManCoding implements Operation {
         
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
-        for(byte b: input) {
+        for (byte b: input) {
             BitBlob compressed = tree.getCompressedBitsForByte(b);
             compressedData = BitBlob.append(compressedData, compressed);
         }
@@ -44,7 +44,7 @@ public class CompressHuffManCoding implements Operation {
         
         HuffmanLeafNode[] result = new HuffmanLeafNode[nodes.size()];
         int size = nodes.size();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             result[i] = nodes.poll();
         }
         
@@ -85,8 +85,8 @@ public class CompressHuffManCoding implements Operation {
      * 1 bytes for uncompressed data, 
      * 4 bytes for the amount it occurs in the original data (integer)
      * 
-     * @param tree
-     * @param compressedData
+     * @param tree huffman tree to serialize.
+     * @param compressedData the compressed data. Used for byte cutoff.
      * @return serialized byte array for this tree. 
      */
     public static byte[] serializeHuffmanTree(HuffmanTree tree, BitBlob compressedData) {
