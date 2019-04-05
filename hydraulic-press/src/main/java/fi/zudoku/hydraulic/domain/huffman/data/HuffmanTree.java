@@ -17,8 +17,7 @@ public class HuffmanTree {
     
     private final HuffmanNode rootNode;
     private BinaryTree<HuffmanLeafNode> searchTree;
-    private HuffmanLeafNode[] inputNodes;
-    private int leafNodes = 0;
+    private final HuffmanLeafNode[] inputNodes;
 
     /**
      * Creates an instance of this class with the given nodes.
@@ -72,13 +71,13 @@ public class HuffmanTree {
      */
     public byte[] toCompressedData() {
         int headerBytes = 4;
-        int dynamicBytes = leafNodes * (1 + 4);
+        int dynamicBytes = getLeafNodeAmount() * (1 + 4);
         byte[] result = new byte[headerBytes + dynamicBytes];
         
-        result[0] = (byte) (leafNodes >> 24);
-        result[1] = (byte) (leafNodes >> 16);
-        result[2] = (byte) (leafNodes >> 8);
-        result[3] = (byte) (leafNodes );
+        result[0] = (byte) (getLeafNodeAmount() >> 24);
+        result[1] = (byte) (getLeafNodeAmount() >> 16);
+        result[2] = (byte) (getLeafNodeAmount() >> 8);
+        result[3] = (byte) (getLeafNodeAmount() );
 
 
         for (int index = 0; index < inputNodes.length; index++) {
@@ -117,7 +116,6 @@ public class HuffmanTree {
      * When we find a leaf node, we add it to the binary tree.
      */
     private void calculatePathForLeafNodesAndSetUpSearchTree() {
-        leafNodes = 0;
         travelDownNode(rootNode, new BitBlob());
     }
     
@@ -126,7 +124,6 @@ public class HuffmanTree {
             HuffmanLeafNode leafNode = (HuffmanLeafNode) node;
             leafNode.setCompressed(bitBlob.copy());
             searchTree.add(leafNode.getDataToCompress(), leafNode);
-            leafNodes++;
         } else {
             HuffmanInternalNode internalNode = (HuffmanInternalNode) node;
             if (internalNode.getLeft() != null) {
@@ -136,9 +133,6 @@ public class HuffmanTree {
             }
             if (internalNode.getRight()!= null) {
                 BitBlob rightBitBlob = bitBlob.copy();
-                if (rightBitBlob.getNumOfBits() == 7) {
-                    System.out.println("");
-                }
                 rightBitBlob.appendOne();
                 travelDownNode(internalNode.getRight(), rightBitBlob);
             }
@@ -151,6 +145,10 @@ public class HuffmanTree {
 
     public BinaryTree<HuffmanLeafNode> getSearchTree() {
         return searchTree;
+    }
+    
+    public int getLeafNodeAmount() {
+        return this.inputNodes.length;
     }
     
 }

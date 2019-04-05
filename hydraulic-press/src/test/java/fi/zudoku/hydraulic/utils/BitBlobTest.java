@@ -1,20 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package fi.zudoku.hydraulic;
+package fi.zudoku.hydraulic.utils;
 
 
 import fi.zudoku.hydraulic.util.BitBlob;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created Apr 4, 2019
- * @author arska
- */
 public class BitBlobTest {
 
     @Test
@@ -40,15 +30,4 @@ public class BitBlobTest {
         byte result = -48; // 1101 0000
         Assert.assertTrue(bitBlob.getData()[0] == result);
     }
-    
-    @Test
-    public void BitBlobSimpleAppendOneTaest() {
-        BitBlob first = new BitBlob(30, new byte[] {0, -86, 85, -4});
-        BitBlob second = new BitBlob(3, new byte[] {-32});
-        
-        BitBlob.append(first, second);
-    }
-    
-    
-    
 }

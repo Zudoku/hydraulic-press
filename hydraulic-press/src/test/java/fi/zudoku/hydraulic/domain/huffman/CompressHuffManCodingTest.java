@@ -1,4 +1,4 @@
-package fi.zudoku.hydraulic;
+package fi.zudoku.hydraulic.domain.huffman;
 
 import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanInternalNode;
