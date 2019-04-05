@@ -30,13 +30,7 @@ public class HuffmanTree {
         for (int i = 0; i < inputNodes.length; i++) {
             HuffmanLeafNode currentNode = inputNodes[i];
             nodes.add(currentNode);
-            // DEBUG!
-            System.out.println(currentNode.getDataToCompress() + " == " + currentNode.getAmount());
-            // END DEBUG!
         }
-         // DEBUG!
-        System.out.println("---");
-        // END DEBUG!
         
         while (nodes.size() > 1) {
             HuffmanNode lower = nodes.poll();
