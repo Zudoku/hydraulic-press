@@ -12,6 +12,7 @@ Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) ja DEFLATE tied
 - [Viikkokatsaus 1](./dokumentaatio/viikkoraportti1.md)
 - [Viikkokatsaus 2](./dokumentaatio/viikkoraportti2.md)
 - [Viikkokatsaus 3](./dokumentaatio/viikkoraportti3.md)
+- [Viikkokatsaus 4](./dokumentaatio/viikkoraportti4.md)
 
 ##### Dokumentit
 - [Määrittelydokumentti](./dokumentaatio/maarittelydokumentti.md)
