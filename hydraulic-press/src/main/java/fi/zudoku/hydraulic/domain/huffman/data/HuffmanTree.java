@@ -2,8 +2,6 @@ package fi.zudoku.hydraulic.domain.huffman.data;
 
 import fi.zudoku.hydraulic.domain.generic.BinaryTree;
 import fi.zudoku.hydraulic.util.BitBlob;
-import static fi.zudoku.hydraulic.util.ByteUtils.intFromByteArray;
-import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
 import java.util.PriorityQueue;
 
 /**
@@ -19,9 +17,8 @@ public class HuffmanTree {
     public static final int HEADER_BYTES = 5;
     public static final int DYNAMIC_CHUNK_SIZE =  1 + 4;
     
-    
     private final HuffmanNode rootNode;
-    private BinaryTree<HuffmanLeafNode> searchTree;
+    private final BinaryTree<HuffmanLeafNode> searchTree;
     private final HuffmanLeafNode[] inputNodes;
 
     /**
@@ -44,17 +41,10 @@ public class HuffmanTree {
         }
         this.rootNode = nodes.poll();
         this.inputNodes = inputNodes;
-    }
-    
-    /**
-     * This initializes the tree. It updates the binary search tree
-     * and calculates the compressed data for each leafnode.
-     * The tree must be initialized before usage, with this method.
-     */
-    public void initialize() {
-        searchTree = new BinaryTree<>();
+        this.searchTree = new BinaryTree<>();
         calculatePathForLeafNodesAndSetUpSearchTree();
     }
+    
     /**
      * This returns the compressed bits for the given chunk of data.
      * @param input the uncompressed chunk of data that we want to compress
@@ -65,49 +55,6 @@ public class HuffmanTree {
         HuffmanLeafNode foundNode = searchTree.find(input);
         return foundNode.getCompressed().copy();
     }
-    
-    /**
-     * Serializes the huffman tree to a format that can be read back when decompressing.
-     * This can be saved to a file and read back.
-     * 4 first bytes = how many nodes there are
-     * dynamic bytes bytes = 1 byte for the uncompressed data, 
-     * 4 for the amount it occurs in the original data
-     * @param compressedData
-     * @return serialized byte array for this tree. 
-     */
-    public byte[] toCompressedData(BitBlob compressedData) {
-        int dynamicBytes = getLeafNodeAmount() * DYNAMIC_CHUNK_SIZE;
-        byte[] result = new byte[HEADER_BYTES + dynamicBytes];
-        
-        result = putIntegerIntoByteArray(result, getLeafNodeAmount(), 0);
-        result[4] = (byte) (compressedData.getNumOfBits() % 8);
-
-
-        for (int index = 0; index < inputNodes.length; index++) {
-            int resultIndex = HEADER_BYTES + (index * 5);
-            HuffmanLeafNode currentLeafNode = inputNodes[index];
-            
-            result[resultIndex] = currentLeafNode.getDataToCompress();
-            result = putIntegerIntoByteArray(result, currentLeafNode.getAmount(), resultIndex + 1);
-        }
-        return result;
-    }
-    
-    public static HuffmanTree fromSerializedData(byte[] input) {
-        int chunks = intFromByteArray(input, 0);
-        HuffmanLeafNode[] nodes = new HuffmanLeafNode[chunks];
-        
-        for(int index = 0; index < chunks; index++) {
-            int inputIndex = HEADER_BYTES + (index * DYNAMIC_CHUNK_SIZE);
-            byte dataToCompress = input[inputIndex];
-            int nodeFrequency = intFromByteArray(input, inputIndex + 1);
-            HuffmanLeafNode newNode = new HuffmanLeafNode(dataToCompress, nodeFrequency);
-            nodes[index] = newNode;
-        }
-        
-        return new HuffmanTree(nodes);
-    }
-   
 
     /**
      * This travels down from rootNode and calculates the path 
@@ -151,5 +98,8 @@ public class HuffmanTree {
     public int getLeafNodeAmount() {
         return this.inputNodes.length;
     }
-    
+
+    public HuffmanLeafNode[] getInputNodes() {
+        return inputNodes;
+    }
 }

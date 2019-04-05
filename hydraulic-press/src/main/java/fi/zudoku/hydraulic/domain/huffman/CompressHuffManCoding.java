@@ -2,9 +2,11 @@ package fi.zudoku.hydraulic.domain.huffman;
 
 import fi.zudoku.hydraulic.domain.Operation;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
+import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
 import fi.zudoku.hydraulic.util.BitBlob;
+import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
 import java.util.PriorityQueue;
 
 public class CompressHuffManCoding implements Operation {
@@ -13,7 +15,6 @@ public class CompressHuffManCoding implements Operation {
     public byte[] execute(byte[] input) {
         // construct huffman tree
         HuffmanTree tree = buildHuffmanTreeFromInput(input);
-        tree.initialize();
         
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
@@ -23,7 +24,7 @@ public class CompressHuffManCoding implements Operation {
         }
         
         // encode huffman tree (and other needed info) to the beginning of the result
-        byte[] header = tree.toCompressedData(compressedData);
+        byte[] header = serializeHuffmanTree(tree, compressedData);
         
         // Combine header and compressed part
         byte[] result = new byte[header.length + compressedData.getData().length];
@@ -66,5 +67,56 @@ public class CompressHuffManCoding implements Operation {
             }
         }
         return new PriorityQueue<>(nodes);
+    }
+    
+    /**
+     * Serializes the huffman tree to a format that can be read back when decompressing.
+     * This can be saved to a file and read back.
+     * The serialization in sequenctial order: 
+     * 
+     * serialized pattern:
+     * HEADER:
+     * 4 bytes = how many nodes there are (integer)
+     * 1 bytes = what is the byte cutoff
+     * DATA:
+     * n amount of dynamic chunks
+     * 
+     * dynamic chunk pattern:
+     * 1 bytes for uncompressed data, 
+     * 4 bytes for the amount it occurs in the original data (integer)
+     * 
+     * @param tree
+     * @param compressedData
+     * @return serialized byte array for this tree. 
+     */
+    public static byte[] serializeHuffmanTree(HuffmanTree tree, BitBlob compressedData) {
+        int dynamicBytes = tree.getLeafNodeAmount() * DYNAMIC_CHUNK_SIZE;
+        byte[] result = new byte[HEADER_BYTES + dynamicBytes];
+        // Construct header
+        result = putIntegerIntoByteArray(result, tree.getLeafNodeAmount(), 0);
+        result[4] = getByteCutOff(compressedData);
+
+        // Construct data
+        for (int index = 0; index < tree.getInputNodes().length; index++) {
+            int resultIndex = HEADER_BYTES + (index * 5);
+            HuffmanLeafNode currentLeafNode = tree.getInputNodes()[index];
+            
+            result[resultIndex] = currentLeafNode.getDataToCompress();
+            result = putIntegerIntoByteArray(result, currentLeafNode.getAmount(), resultIndex + 1);
+        }
+        return result;
+    }
+    
+    /**
+     * This is the bytecutoff header field.
+     * This is needed so that the uncompressing algorigthm 
+     * knows when to stop parsing the last byte. Otherwise it might uncompress 
+     * extra data from the remaining 0 filled bits.
+     * @param compressedData final compressed data.
+     * @return bytecutoff header field value.
+     */
+    private static byte getByteCutOff(BitBlob compressedData) {
+        int byteCutOff = compressedData.getNumOfBits() % 8;
+        return  byteCutOff == 0 ? 8 : (byte) byteCutOff;
     }
 }
