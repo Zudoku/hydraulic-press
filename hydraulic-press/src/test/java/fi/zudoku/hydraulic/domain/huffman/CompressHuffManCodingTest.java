@@ -42,7 +42,7 @@ public class CompressHuffManCodingTest {
             int nodeFrequency = intFromByteArray(result, resultIndex + 1);
             // Check that it is unique
             Assert.assertFalse(results.containsKey(dataToCompress));
-            results.put(byteCutOff, nodeFrequency);
+            results.put(dataToCompress, nodeFrequency);
             // Check that it is the same order as in tree
             Assert.assertEquals(dataToCompress, tree.getInputNodes()[index].getDataToCompress());
 
