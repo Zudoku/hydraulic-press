@@ -3,7 +3,7 @@
 ## Mitä on testattu, miten tämä tehtiin
 Sovelluksen testauksessa keskitytään kolmeen kulmaan: 
 
-1. Sovelluksen suorituskyvyn testaus: sovelluksen suoritusnopeus, sekä kompressioprosentti  (manuaalinen testaus)
+1. Sovelluksen suorituskyvyn testaus: sovelluksen suoritusnopeus, sekä kompressioprosentti  (manuaalinen testaus / automaattinen ohjelman suoritus)
 2. Sovelluksen tietorakenteiden toimivuuden testaukseen (yksikkötestit)
 3. Sovelluksen tuottaman ulostulon oikeellisuus (yksikkötestit)
 
@@ -11,7 +11,7 @@ Tavoitteena on saada jokaiselle tietorakenteelle projektissa yksikkötestit jotk
 
 Yksikkötesteillä suoritetaan myös "end to end" testausta, jossa suoritetaan ohjelmaa: pakataan dataa ja puretaan se ja tarkistetaan että sama data tulee ulos, kuin mitä annettin sisälle.
 
-Viimeinen, eli vaikein testattava asia, on suorituskyvyn testaus. Se tehdään manuaalisella testaamisella, suorittamalla ohjelmaa eri syötöillä ja mittaamalla tuloksia jotka kerätään kaavioksi / taulukoksi alle. Mitattavia suureita on tiedoston koko vs. suoritusnopeus, sekä erityylisten tiedostojen pakkaaminen eri tavoilla ja pakkaustoteutusten vertailua. Ohjelman suorituskyky-testaus automatisoidaan luomalla skripti ja testin voi toistaa tulevaisuudessa yhdellä komennolla. Tulosten siirtäminen graafiseen muotoon on tehty käsin.
+Viimeinen, eli vaikein testattava asia, on suorituskyvyn testaus. Se tehdään suorittamalla ohjelmaa eri syötöillä ja mittaamalla tuloksia jotka kerätään kaavioksi / taulukoksi alle. Mitattavia suureita on tiedoston koko vs. suoritusnopeus, sekä erityylisten tiedostojen pakkaaminen eri tavoilla ja pakkaustoteutusten vertailua. Ohjelman suorituskyky-testaus automatisoidaan luomalla skripti ja testin voi toistaa tulevaisuudessa yhdellä komennolla. Tulosten siirtäminen graafiseen muotoon on tehty käsin.
 
 ## Minkälaisilla syötteillä testaus tehtiin
 
