@@ -13,7 +13,7 @@ Yksikkötesteillä suoritetaan myös "end to end" testausta, jossa suoritetaan o
 
 Viimeinen, eli vaikein testattava asia, on suorituskyvyn testaus. Se tehdään manuaalisella testaamisella, suorittamalla ohjelmaa eri syötöillä ja mittaamalla tuloksia jotka kerätään kaavioksi / taulukoksi alle. Mitattavia suureita on tiedoston koko vs. suoritusnopeus, sekä erityylisten tiedostojen pakkaaminen eri tavoilla ja pakkaustoteutusten vertailua. Ohjelman suorituskyky-testaus automatisoidaan luomalla skripti ja testin voi toistaa tulevaisuudessa yhdellä komennolla. Tulosten siirtäminen graafiseen muotoon on tehty käsin.
 
-## Minkälaisilla syötteillä testaus tehtiin (vertailupainotteisissa töissä tärkeää
+## Minkälaisilla syötteillä testaus tehtiin
 
 Manuaalisen testaamisen syötteet löytyvät paikasta ___.  Yksikkötesteissä syötteet on määritelty testeissä.
 
@@ -37,5 +37,6 @@ Yksikkötestien tulokset näet kansiosta `./build/test-results/test/`
 ### Suorituskyky-testaus
 
 Suorituskyky-testaus automatisoidaan luomalla skripti / java luokka joka suorittaa ohjelmaa ja tulostaa tulokset terminaaliin .Testin Tämän testausmuodon ohjeet tulevat tähän pian.
+
 ## Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
 TODO
