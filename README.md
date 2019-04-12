@@ -18,5 +18,4 @@ Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) ja DEFLATE tied
 ##### Dokumentit
 - [Määrittelydokumentti](./dokumentaatio/maarittelydokumentti.md)
 - [Toteutusdokumentti](./dokumentaatio/toteutusdokumentti.md) (vajaavainen)
-- [Testausdokumentti](./dokumentaatio/testausdokumentti.md) (vajaavainen)
-asdaad
+- [Testausdokumentti](./dokumentaatio/testausdokumentti.md)
