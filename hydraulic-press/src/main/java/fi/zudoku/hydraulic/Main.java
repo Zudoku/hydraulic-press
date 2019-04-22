@@ -3,7 +3,6 @@ package fi.zudoku.hydraulic;
 import fi.zudoku.hydraulic.domain.Operations;
 import fi.zudoku.hydraulic.util.ArgumentBuilder;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
-import java.nio.charset.StandardCharsets;
 
 public class Main {
     /**
@@ -15,24 +14,21 @@ public class Main {
         HydraulicPressArguments arguments = ArgumentBuilder.parseArguments(args);
         
         if (arguments == null) {
-            System.out.println("Failed to parse your arguments, not doing anything");
-            return;
+            System.out.println("Failed to parse your arguments.");
+            ArgumentBuilder.printHelp();
+            //return;
+            // for easy development, default to these arguments
+            arguments = ArgumentBuilder.parseArguments(new String[] {"testdata.tst", "0"});
         }
         
-        System.out.println("original: " + arguments.getData().length + "\n" + new String(arguments.getData(), StandardCharsets.UTF_8));
+        System.out.println("input length (B): " + arguments.getData().length);
         System.out.println("----");
         
         HydraulicPressInstance hydraulicPress = new HydraulicPressInstance();
         byte[] result = hydraulicPress.run(arguments);
         
-        System.out.println("compressed: " + result.length + "\n" + new String(result, StandardCharsets.UTF_8));
+        System.out.println("output length (B): " + result.length);
         System.out.println("----");
-        
-        HydraulicPressInstance decompresshydraulicPress = new HydraulicPressInstance();
-        byte[] result2 = decompresshydraulicPress.run(new HydraulicPressArguments(Operations.DECOMPRESS_HUFFMAN_CODING, result));
-
-        System.out.println("uncompressed:" + result2.length + "\n" + new String(result2, StandardCharsets.UTF_8));
-        
     }
 }
 
