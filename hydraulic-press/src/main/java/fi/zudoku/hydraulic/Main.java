@@ -21,13 +21,18 @@ public class Main {
             arguments = ArgumentBuilder.parseArguments(new String[] {"testdata3.tst", "0"});
         }
         
-        System.out.println("input length (B): " + arguments.getData().length);
+        System.out.println("Input length (B): " + arguments.getData().length);
+        System.out.println("----");
+       
+        HydraulicPressInstance hydraulicPress = new HydraulicPressInstance();
+        long beforeExecutionTimeStamp = System.currentTimeMillis();
+        byte[] result = hydraulicPress.run(arguments);
+        long afterExecutionTimeStamp = System.currentTimeMillis();
+        
+        System.out.println("Output length (B): " + result.length);
         System.out.println("----");
         
-        HydraulicPressInstance hydraulicPress = new HydraulicPressInstance();
-        byte[] result = hydraulicPress.run(arguments);
-        
-        System.out.println("output length (B): " + result.length);
+        System.out.println("Time took (ms): " + (afterExecutionTimeStamp - beforeExecutionTimeStamp));
         System.out.println("----");
     }
 }

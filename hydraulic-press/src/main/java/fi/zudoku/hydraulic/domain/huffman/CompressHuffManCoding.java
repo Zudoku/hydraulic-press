@@ -10,6 +10,8 @@ import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
 import java.util.PriorityQueue;
 
 public class CompressHuffManCoding implements Operation {
+    
+    private final int COMPRESSED_DATA_BUFFER_SIZE = 10000;
 
     @Override
     public byte[] execute(byte[] input) {
@@ -18,10 +20,16 @@ public class CompressHuffManCoding implements Operation {
         
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
-        for (byte b: input) {
-            BitBlob compressed = tree.getCompressedBitsForByte(b);
-            compressedData = BitBlob.append(compressedData, compressed);
+        BitBlob compressedDataBuffer = new BitBlob();
+        for (int i = 0; i < input.length; i++) {
+            if (i % COMPRESSED_DATA_BUFFER_SIZE == 0) {
+                compressedData = BitBlob.append(compressedData, compressedDataBuffer);
+                compressedDataBuffer = new BitBlob();
+            }
+            BitBlob compressed = tree.getCompressedBitsForByte(input[i]);
+            compressedDataBuffer = BitBlob.append(compressedDataBuffer, compressed);
         }
+        compressedData = BitBlob.append(compressedData, compressedDataBuffer);
         
         // encode huffman tree (and other needed info) to the beginning of the result
         byte[] header = serializeHuffmanTree(tree, compressedData);
