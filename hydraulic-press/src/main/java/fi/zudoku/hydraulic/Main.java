@@ -18,7 +18,7 @@ public class Main {
             ArgumentBuilder.printHelp();
             //return;
             // for easy development, default to these arguments
-            arguments = ArgumentBuilder.parseArguments(new String[] {"testdata.tst", "0"});
+            arguments = ArgumentBuilder.parseArguments(new String[] {"testdata3.tst", "0"});
         }
         
         System.out.println("input length (B): " + arguments.getData().length);
