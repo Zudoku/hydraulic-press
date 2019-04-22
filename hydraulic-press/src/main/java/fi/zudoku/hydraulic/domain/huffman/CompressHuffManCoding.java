@@ -20,6 +20,8 @@ public class CompressHuffManCoding implements Operation {
         
         // go through input, and replace bytes from input with the huffman tree bits
         BitBlob compressedData = new BitBlob();
+        // To improve performance, we append smaller bitblobs together first
+        // before appending the larger blobs together
         BitBlob compressedDataBuffer = new BitBlob();
         for (int i = 0; i < input.length; i++) {
             if (i % COMPRESSED_DATA_BUFFER_SIZE == 0) {
