@@ -39,7 +39,7 @@ public class CompressLZSS implements Operation {
             byte currentByte = input[i];
             
             // move lookahead buffer
-            ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, lookaheadBufferSize);
+            ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, Math.min(lookaheadBufferSize, input.length - i));
             
             // Check if can be found in searchbuffer, if yes, encode that as chunk
             SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(input);
