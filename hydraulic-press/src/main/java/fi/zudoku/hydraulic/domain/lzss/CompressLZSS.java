@@ -29,7 +29,7 @@ public class CompressLZSS implements Operation {
     
     
     private List<LZChunk> parseInputIntoChunks(byte[] input) {
-        ArrayList<LZChunk> list = new ArrayList<>();
+        ArrayList<LZChunk> list = new ArrayList<>(); // Replace with custom implementation
         
         LZSearchBuffer searchBuffer = new LZSearchBuffer(searchBufferSize);
         byte[] lookaheadBuffer = new byte[lookaheadBufferSize];
