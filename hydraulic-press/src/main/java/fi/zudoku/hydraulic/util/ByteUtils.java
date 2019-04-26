@@ -22,8 +22,7 @@ public class ByteUtils {
      */
     public static byte[] growByteArrayWithOne(byte[] bytes) {
         byte[] newData = new byte[bytes.length + 1];
-        // IS THIS ALLOWED?
-        System.arraycopy(bytes, 0, newData, 0, bytes.length);
+        arrayCopy(bytes, 0, newData, 0, bytes.length);
         return newData;
     }
 
@@ -41,5 +40,10 @@ public class ByteUtils {
         bytes[index + 2] = (byte) (number >> 8);
         bytes[index + 3] = (byte) (number);
         return bytes;
+    }
+    
+    public static void arrayCopy(byte[] from, int fromIndex, byte[] to, int toIndex, int length) {
+        // Replace this with custom implementation if not allowed?
+        System.arraycopy(from, fromIndex, to, toIndex, length);
     }
 }
