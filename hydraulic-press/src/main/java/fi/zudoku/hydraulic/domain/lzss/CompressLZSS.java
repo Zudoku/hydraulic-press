@@ -10,8 +10,8 @@ import java.util.List;
 
 public class CompressLZSS implements Operation {
 
-    private final int searchBufferSize = 1 << 6;
-    private final int lookaheadBufferSize = 1 << 4;
+    private final int searchBufferSize = 1 << 4;
+    private final int lookaheadBufferSize = 1 << 3;
     
     @Override
     public byte[] execute(byte[] input) {
@@ -42,11 +42,10 @@ public class CompressLZSS implements Operation {
             ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, Math.min(lookaheadBufferSize, input.length - i));
             
             // Check if can be found in searchbuffer, if yes, encode that as chunk
-            SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(input);
+            SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(lookaheadBuffer);
             LZChunk chunk;
             if (searchBufferResult.foundMatch()) {
-                boolean fullMatchFound = searchBufferResult.getLength() == lookaheadBufferSize;
-                boolean lastChunk = fullMatchFound && i + lookaheadBufferSize == input.length;
+                boolean lastChunk = i + searchBufferResult.getLength() == input.length;
                 byte nextByte = (lastChunk) ? 0 : input[i + searchBufferResult.getLength()];
                 chunk = new LZChunk(searchBufferResult.getIndex(), searchBufferResult.getIndex(), nextByte);
                 
