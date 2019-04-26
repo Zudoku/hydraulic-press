@@ -1,8 +1,9 @@
 package fi.zudoku.hydraulic;
 
-import fi.zudoku.hydraulic.domain.Operations;
 import fi.zudoku.hydraulic.util.ArgumentBuilder;
+import fi.zudoku.hydraulic.util.FileUtils;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
+import java.io.IOException;
 
 public class Main {
     /**
@@ -18,7 +19,7 @@ public class Main {
             ArgumentBuilder.printHelp();
             //return;
             // for easy development, default to these arguments
-            arguments = ArgumentBuilder.parseArguments(new String[] {"testdata3.tst", "0"});
+            arguments = ArgumentBuilder.parseArguments(new String[] {"testdata3.tst.result", "1"});
         }
         
         System.out.println("Input length (B): " + arguments.getData().length);
@@ -34,6 +35,15 @@ public class Main {
         
         System.out.println("Time took (ms): " + (afterExecutionTimeStamp - beforeExecutionTimeStamp));
         System.out.println("----");
+        
+        String outputFileName = arguments.getInputFilename() + ".result";
+        try {
+            FileUtils.saveByteArrayIntoFile(result, outputFileName);
+            System.out.println("File saved into: " + outputFileName);
+        } catch (IOException ex) {
+            System.out.println("Failed to save result into file: " + outputFileName);
+            System.out.println("Reason: " + ex.getMessage());
+        }
     }
 }
 

@@ -2,6 +2,7 @@ package fi.zudoku.hydraulic;
 
 import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.huffman.DecompressHuffManCoding;
+import fi.zudoku.hydraulic.domain.lzss.CompressLZSS;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 
 /**
@@ -22,6 +23,12 @@ public class HydraulicPressInstance {
                 
             case DECOMPRESS_HUFFMAN_CODING:
                 return decompressHuffman(arguments);
+                
+            case COMPRESS_LZ77:
+                return compressLZ77(arguments);
+                
+            case DECOMPRESS_LZ77:
+                return decompressLZ77(arguments);
             default:
                 System.out.println("Unknown operation!");
                 return new byte[0];
@@ -43,6 +50,16 @@ public class HydraulicPressInstance {
         DecompressHuffManCoding decompressHuffmanCoding = new DecompressHuffManCoding();
         
         return decompressHuffmanCoding.execute(arguments.getData());
+    }
+
+    private byte[] compressLZ77(HydraulicPressArguments arguments) {
+        CompressLZSS compressLZSS = new CompressLZSS();
+        
+        return compressLZSS.execute(arguments.getData());
+    }
+    
+    private byte[] decompressLZ77(HydraulicPressArguments arguments) {
+        return new byte[0];
     }
     
 }

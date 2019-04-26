@@ -2,6 +2,8 @@ package fi.zudoku.hydraulic.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FileUtils {
@@ -21,6 +23,14 @@ public class FileUtils {
         fileInputStream.close();
         
         return result;
+    }
+    
+    public static void saveByteArrayIntoFile(byte[] data, String filepath) throws IOException {
+        File fileToLoad = new File(filepath);
+        fileToLoad.createNewFile();
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToLoad);
+        fileOutputStream.write(data);
+        fileOutputStream.close();
     }
     
 }

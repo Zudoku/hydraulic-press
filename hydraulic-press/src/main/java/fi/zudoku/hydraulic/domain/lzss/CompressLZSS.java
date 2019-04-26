@@ -6,6 +6,7 @@ import fi.zudoku.hydraulic.domain.lzss.data.LZSearchBuffer;
 import fi.zudoku.hydraulic.domain.lzss.data.SearchBufferResult;
 import fi.zudoku.hydraulic.util.ByteUtils;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompressLZSS implements Operation {
 
@@ -15,6 +16,19 @@ public class CompressLZSS implements Operation {
     @Override
     public byte[] execute(byte[] input) {
         
+        // Parse input into chunks
+        List<LZChunk> chunks = parseInputIntoChunks(input);
+        
+        // Headers
+        
+        // chunks into bytes
+        
+        return null;
+    }
+    
+    
+    
+    private List<LZChunk> parseInputIntoChunks(byte[] input) {
         ArrayList<LZChunk> list = new ArrayList<>();
         
         LZSearchBuffer searchBuffer = new LZSearchBuffer(searchBufferSize);
@@ -54,8 +68,7 @@ public class CompressLZSS implements Operation {
                 }
             }
         }
-        
-        return null;
+        return list;
     }
 
 }

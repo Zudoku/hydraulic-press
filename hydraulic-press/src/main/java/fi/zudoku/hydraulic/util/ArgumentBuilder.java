@@ -21,7 +21,7 @@ public class ArgumentBuilder {
             Operations operation = Operations.values()[Integer.parseInt(args[1])];
             byte[] testdata = FileUtils.loadFileToByteArray(filePathToLoad);
             
-            return new HydraulicPressArguments(operation, testdata);
+            return new HydraulicPressArguments(operation, testdata, filePathToLoad);
         } catch (SecurityException | IOException ex) {
             System.out.println("File " + args[0] + " could not be loaded.");
         } catch (NumberFormatException ex) {
