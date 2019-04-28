@@ -32,20 +32,21 @@ public class CompressLZSS implements Operation {
         ArrayList<LZChunk> list = new ArrayList<>(); // Replace with custom implementation
         
         LZSearchBuffer searchBuffer = new LZSearchBuffer(searchBufferSize);
-        byte[] lookaheadBuffer = new byte[lookaheadBufferSize];
+        byte[] lookaheadBuffer;
         
         // Loop through byte one at a time
         for(int i = 0; i < input.length; i++) {
             byte currentByte = input[i];
             
             // move lookahead buffer
+            lookaheadBuffer = new byte[lookaheadBufferSize];
             ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, Math.min(lookaheadBufferSize, input.length - i));
             
             // Check if can be found in searchbuffer, if yes, encode that as chunk
             SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(lookaheadBuffer);
             LZChunk chunk;
             if (searchBufferResult.foundMatch()) {
-                boolean lastChunk = i + searchBufferResult.getLength() == input.length;
+                boolean lastChunk = i + searchBufferResult.getLength() == (input.length);
                 byte nextByte = (lastChunk) ? 0 : input[i + searchBufferResult.getLength()];
                 chunk = new LZChunk(searchBufferResult.getIndex(), searchBufferResult.getIndex(), nextByte);
                 
