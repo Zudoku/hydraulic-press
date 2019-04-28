@@ -6,6 +6,7 @@ import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
 import fi.zudoku.hydraulic.util.BitBlob;
+import fi.zudoku.hydraulic.util.ByteUtils;
 import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
 import java.util.PriorityQueue;
 
@@ -38,8 +39,8 @@ public class CompressHuffManCoding implements Operation {
         
         // Combine header and compressed part
         byte[] result = new byte[header.length + compressedData.getData().length];
-        System.arraycopy(header, 0, result, 0, header.length);
-        System.arraycopy(compressedData.getData(), 0, result, header.length, compressedData.getData().length);
+        ByteUtils.arrayCopy(header, 0, result, 0, header.length);
+        ByteUtils.arrayCopy(compressedData.getData(), 0, result, header.length, compressedData.getData().length);
         
         return result;
     }
@@ -119,7 +120,7 @@ public class CompressHuffManCoding implements Operation {
     
     /**
      * This is the bytecutoff header field.
-     * This is needed so that the uncompressing algorigthm 
+     * This is needed so that the uncompressing algorithm 
      * knows when to stop parsing the last byte. Otherwise it might uncompress 
      * extra data from the remaining 0 filled bits.
      * @param compressedData final compressed data.

@@ -65,8 +65,7 @@ public class BitBlob {
        
         if (bitsFreeInData == 0) {
             byte[] newData = new byte[data.length + 1];
-            // IS THIS ALLOWED?
-            System.arraycopy(data, 0, newData, 0, data.length);
+            ByteUtils.arrayCopy(data, 0, newData, 0, data.length);
             data = newData;
         }
     }
@@ -90,7 +89,7 @@ public class BitBlob {
         int newDataLength =  calculateDataLength(one, other);
         //Copy the first part to the new array
         byte[] newData = new byte[newDataLength];
-        System.arraycopy(one.data, 0, newData, 0, one.data.length);
+        ByteUtils.arrayCopy(one.data, 0, newData, 0, one.data.length);
         // Calculate, if last byte is missing bits
         int byteCutPoint = one.numOfBits % 8;
         // if so, add missing bits from the second array
