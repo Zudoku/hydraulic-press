@@ -58,4 +58,8 @@ public class BinaryTree<T> {
             return find(node.getRight(), value);
         }
     }
+
+    public BinaryTreeNode<T> getRootNode() {
+        return rootNode;
+    }
 }
