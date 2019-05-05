@@ -72,7 +72,7 @@ public class CompressLZSS implements Operation {
             if (searchBufferResult.foundMatch()) {
                 boolean lastChunk = i + searchBufferResult.getLength() == (input.length);
                 byte nextByte = (lastChunk) ? 0 : input[i + searchBufferResult.getLength()];
-                chunk = new LZChunk(searchBufferResult.getIndex(), searchBufferResult.getIndex(), nextByte);
+                chunk = new LZChunk(searchBufferResult.getIndex(), searchBufferResult.getLength(), nextByte);
                 
                 if (lastChunk) {
                     chunk.setNextByteInvalid(true);
