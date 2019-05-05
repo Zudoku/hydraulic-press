@@ -42,7 +42,9 @@ public class DecompressLZSS implements Operation {
                     case Index:
                         if (currentBits.getNumOfBits() == CompressLZSS.SEARCH_BUFFER_BITS) {
                             int shiftAmount = (8 - CompressLZSS.SEARCH_BUFFER_BITS);
-                            int currentChunkIndex = currentBits.getData()[0] >> shiftAmount;
+                            int currentChunkIndex = currentBits.getData()[0] & 0xFF;
+                            currentChunkIndex >>= shiftAmount;
+                            
                             currentChunk.index = currentChunkIndex;
                             currentBits = new BitBlob();
                             currentState = DecodingState.Length;
@@ -52,7 +54,9 @@ public class DecompressLZSS implements Operation {
                     case Length:
                         if (currentBits.getNumOfBits() == CompressLZSS.LOOKAHEAD_BUFFER_BITS) {
                             int shiftAmount = (8 - CompressLZSS.LOOKAHEAD_BUFFER_BITS);
-                            int currentChunkLength = currentBits.getData()[0] >> shiftAmount;
+                            int currentChunkLength = currentBits.getData()[0] & 0xFF;
+                            currentChunkLength >>= shiftAmount;
+                            
                             currentChunk.length = currentChunkLength;
                             currentBits = new BitBlob();
                             currentState = DecodingState.Next;
@@ -62,7 +66,7 @@ public class DecompressLZSS implements Operation {
                     case Next:
                         if (currentBits.getNumOfBits() == Byte.SIZE) {
                             byte nextByte = currentBits.getData()[0];
-                            LZChunk parsedChunk = new LZChunk(currentChunk.index, currentChunk.index, nextByte);
+                            LZChunk parsedChunk = new LZChunk(currentChunk.index, currentChunk.length, nextByte);
                             chunks.add(parsedChunk);
                             currentBits = new BitBlob();
                             currentState = DecodingState.Index;
@@ -72,6 +76,13 @@ public class DecompressLZSS implements Operation {
                 }
             }
         }
+        
+        if (currentChunk.index != 0 && currentChunk.length != 0) {
+            LZChunk partialChunk = new LZChunk(currentChunk.index, currentChunk.length, (byte) 0);
+            partialChunk.setNextByteInvalid(true);
+            chunks.add(partialChunk);
+        }
+        
         return new byte[0];
     }
 
