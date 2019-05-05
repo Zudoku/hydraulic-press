@@ -2,32 +2,30 @@ package fi.zudoku.hydraulic.domain.lzss.data;
 
 public class LZSearchBuffer {
     
-    private final int bufferSize;
     private final byte[] buffer;
-    private int index = 0;
+    private int bufferIndex = 0;
 
     public LZSearchBuffer(int bufferSize) {
-        this.bufferSize = bufferSize;
         this.buffer = new byte[bufferSize];
     }
     
     public void add(byte b) {
-        if (index >= bufferSize) {
-            buffer[calculateBufferIndex(index)] = b;
+        if (bufferIndex >= buffer.length) {
+            buffer[calculateBufferIndex(bufferIndex)] = b;
         } else {
-            buffer[index] = b;
+            buffer[bufferIndex] = b;
         }
-        index++;
+        bufferIndex++;
     }
     
-    public SearchBufferResult findBestMatch(byte[] searchBuffer) {
+    public SearchBufferResult findBestMatch(byte[] toMatch) {
         SearchBufferResult bestMatch = new SearchBufferResult(false, 0, 0);
         
-        // For now, use this inefficient impelementation of searchbuffer
-        for (int i = 0; i < bufferSize; i++) {
-            int maxMatchLength = Math.min(searchBuffer.length - 1, bufferSize - i);
-            int startIndex = index + i;
-            SearchBufferResult foundMatch = tryToMatch(searchBuffer, startIndex, maxMatchLength);
+        for (int bufferIterator = 0; bufferIterator < buffer.length; bufferIterator++) {
+            // max match length = min (current buffer size - i, toMatch length)
+            int maxMatchLength = Math.min(Math.min(buffer.length - bufferIterator, bufferIndex), toMatch.length - 1);
+            int startIndex = bufferIndex + bufferIterator;
+            SearchBufferResult foundMatch = tryToMatch(toMatch, startIndex, maxMatchLength);
             if (foundMatch.getLength() >= bestMatch.getLength()){
                 bestMatch = foundMatch;
             }
@@ -40,7 +38,7 @@ public class LZSearchBuffer {
     private SearchBufferResult tryToMatch(byte[] toMatch, int startIndex, int maxLength) {
         int length = 0;
         while(length < maxLength) {
-            if (bufferSizeIsBigEnoughForMatch(startIndex, length) && bufferResultMatchesFound(toMatch, startIndex, length)) {
+            if (bufferResultMatchesFound(toMatch, startIndex, length)) {
                 length++;
             } else {
                 break;
@@ -50,16 +48,16 @@ public class LZSearchBuffer {
         if (length == 0) {
             return new SearchBufferResult(false, 0, 0);
         } else {
-            return new SearchBufferResult(true, bufferSize - calculateBufferIndex(startIndex) + 1, length);
+            return new SearchBufferResult(true, buffer.length - (startIndex - bufferIndex), length);
         }
     }
 
     private boolean bufferSizeIsBigEnoughForMatch(int startIndex, int length) {
-        return startIndex + length >= index;
+        return startIndex + length < bufferIndex;
     }
 
     private int calculateBufferIndex(int realIndex) {
-        return realIndex % bufferSize;
+        return realIndex % buffer.length;
     }
 
     private boolean bufferResultMatchesFound(byte[] toMatch, int startIndex, int length) {

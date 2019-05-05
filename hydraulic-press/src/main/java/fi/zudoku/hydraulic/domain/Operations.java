@@ -7,9 +7,5 @@ public enum Operations {
     
     // Lempel Ziv 77
     COMPRESS_LZ77,
-    DECOMPRESS_LZ77,
-    
-    // Deflate
-    COMPRESS_DEFLATE,
-    DECOMPRESS_DEFLATE
+    DECOMPRESS_LZ77
 }

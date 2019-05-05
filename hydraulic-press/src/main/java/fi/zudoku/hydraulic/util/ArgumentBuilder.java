@@ -18,7 +18,7 @@ public class ArgumentBuilder {
         }
         try {
             String filePathToLoad = args[0];
-            Operations operation = Operations.values()[Integer.parseInt(args[1])];
+            Operations operation = Operations.values()[Integer.parseInt(args[1]) - 1];
             byte[] testdata = FileUtils.loadFileToByteArray(filePathToLoad);
             
             return new HydraulicPressArguments(operation, testdata, filePathToLoad);
@@ -38,7 +38,8 @@ public class ArgumentBuilder {
         System.out.println("[OPERATION] = operation code");
         System.out.println("1. = COMPRESS_HUFFMAN_CODING");
         System.out.println("2. = DECOMPRESS_HUFFMAN_CODING");
-        System.out.println("");
+        System.out.println("3. = COMPRESS_LZ77");
+        System.out.println("4. = DECOMPRESS_LZ77");
     }
 
 }

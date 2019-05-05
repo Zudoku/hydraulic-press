@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompressLZSS implements Operation {
+    
+    public static final int SEARCH_BUFFER_BITS = 3;
+    public static final int LOOKAHEAD_BUFFER_BITS = 2;
 
-    public static final int SEARCH_BUFFER_SIZE = 1 << 3;
-    public static final int LOOKAHEAD_BUFFER_SIZE = 1 << 2;
+    public static final int SEARCH_BUFFER_SIZE = 1 << SEARCH_BUFFER_BITS;
+    public static final int LOOKAHEAD_BUFFER_SIZE = 1 << LOOKAHEAD_BUFFER_BITS;
     
     @Override
     public byte[] execute(byte[] input) {

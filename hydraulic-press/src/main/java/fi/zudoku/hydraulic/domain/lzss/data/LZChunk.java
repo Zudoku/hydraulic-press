@@ -2,6 +2,7 @@ package fi.zudoku.hydraulic.domain.lzss.data;
 
 import fi.zudoku.hydraulic.domain.lzss.CompressLZSS;
 import fi.zudoku.hydraulic.util.BitBlob;
+import fi.zudoku.hydraulic.util.ByteUtils;
 
 public class LZChunk {
     private final int index;
@@ -55,22 +56,12 @@ public class LZChunk {
     
     private void appendBitsToBitBlob(int bitLength, int input, BitBlob blob) {
         for (int n = 0; n < bitLength; n++) {
-            int currentBit = getNthBitFromInt(n, input);
+            int currentBit = ByteUtils.getNthBitFromInt(n, input);
             if (currentBit == 0) {
                 blob.appendZero();
             } else {
                 blob.appendOne();
             }
         }
-    }
-    
-    
-    private int getNthBitFromInt(int n, int input) {
-        byte temporary = (byte) ((input >> n) << 7); 
-        
-        int result = (int) temporary;
-        result >>= 7;
-        
-        return result;
     }
 }

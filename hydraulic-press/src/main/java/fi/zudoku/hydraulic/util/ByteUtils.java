@@ -25,6 +25,15 @@ public class ByteUtils {
         arrayCopy(bytes, 0, newData, 0, bytes.length);
         return newData;
     }
+    
+    public static int getNthBitFromInt(int n, int input) {
+        byte temporary = (byte) ((input >> n) << 7); 
+        
+        int result = (int) temporary;
+        result >>= 7;
+        
+        return result;
+    }
 
     /**
      * Stores integer into byte array and returns it.
