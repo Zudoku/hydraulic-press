@@ -58,6 +58,8 @@ public class ByteUtils {
     
     public static void arrayCopy(byte[] from, int fromIndex, byte[] to, int toIndex, int length) {
         // Replace this with custom implementation if not allowed?
-        System.arraycopy(from, fromIndex, to, toIndex, length);
+        if (length != 0) {
+            System.arraycopy(from, fromIndex, to, toIndex, length);
+        }
     }
 }
