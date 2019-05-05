@@ -3,6 +3,7 @@ package fi.zudoku.hydraulic;
 import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.huffman.DecompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.lzss.CompressLZSS;
+import fi.zudoku.hydraulic.domain.lzss.DecompressLZSS;
 import fi.zudoku.hydraulic.util.HydraulicPressArguments;
 
 /**
@@ -59,7 +60,8 @@ public class HydraulicPressInstance {
     }
     
     private byte[] decompressLZ77(HydraulicPressArguments arguments) {
-        return new byte[0];
+        DecompressLZSS decompressLZSS = new DecompressLZSS();
+        return decompressLZSS.execute(arguments.getData());
     }
     
 }

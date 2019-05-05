@@ -41,22 +41,22 @@ public class LZChunk {
         BitBlob result = new BitBlob();
         
         // index bits
-        appendBitsToBitBlob(CompressLZSS.SEARCH_BUFFER_SIZE, index, result);
+        appendBitsToBitBlob(CompressLZSS.SEARCH_BUFFER_BITS, (byte) index, result);
         
         // length bits
-        appendBitsToBitBlob(CompressLZSS.LOOKAHEAD_BUFFER_SIZE, length, result);
+        appendBitsToBitBlob(CompressLZSS.LOOKAHEAD_BUFFER_BITS, (byte) length, result);
         
         // next value
-        if (isNextByteInvalid()) {
+        if (!isNextByteInvalid()) {
             appendBitsToBitBlob(Byte.SIZE, next, result);
         }
         
         return result;
     }
     
-    private void appendBitsToBitBlob(int bitLength, int input, BitBlob blob) {
+    private void appendBitsToBitBlob(int bitLength, byte input, BitBlob blob) {
         for (int n = 0; n < bitLength; n++) {
-            int currentBit = ByteUtils.getNthBitFromInt(n, input);
+            int currentBit = ByteUtils.getNthBitFromByte(bitLength - n - 1, input);
             if (currentBit == 0) {
                 blob.appendZero();
             } else {

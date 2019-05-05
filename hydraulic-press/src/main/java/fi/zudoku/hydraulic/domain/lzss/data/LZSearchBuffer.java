@@ -52,10 +52,6 @@ public class LZSearchBuffer {
         }
     }
 
-    private boolean bufferSizeIsBigEnoughForMatch(int startIndex, int length) {
-        return startIndex + length < bufferIndex;
-    }
-
     private int calculateBufferIndex(int realIndex) {
         return realIndex % buffer.length;
     }

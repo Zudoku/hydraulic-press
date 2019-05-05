@@ -31,7 +31,7 @@ public class DecompressLZSS implements Operation {
             byte byteToHandle = input[index];
             
             for (byte bit = 0; bit < 8; bit++) {
-                int currentBitFromByte = ByteUtils.getNthBitFromInt(bit, byteToHandle);
+                int currentBitFromByte = ByteUtils.getNthBitFromByte(7 - bit, byteToHandle);
                 if (currentBitFromByte == 0) {
                     currentBits.appendZero();
                 } else {
@@ -40,8 +40,8 @@ public class DecompressLZSS implements Operation {
                 
                 switch (currentState) {
                     case Index:
-                        if (currentBits.getNumOfBits() == CompressLZSS.LOOKAHEAD_BUFFER_BITS) {
-                            int shiftAmount = (Byte.SIZE - CompressLZSS.LOOKAHEAD_BUFFER_BITS);
+                        if (currentBits.getNumOfBits() == CompressLZSS.SEARCH_BUFFER_BITS) {
+                            int shiftAmount = (8 - CompressLZSS.SEARCH_BUFFER_BITS);
                             int currentChunkIndex = currentBits.getData()[0] >> shiftAmount;
                             currentChunk.index = currentChunkIndex;
                             currentBits = new BitBlob();
@@ -50,8 +50,8 @@ public class DecompressLZSS implements Operation {
                         break;
                         
                     case Length:
-                        if (currentBits.getNumOfBits() == CompressLZSS.SEARCH_BUFFER_BITS) {
-                            int shiftAmount = (Byte.SIZE - CompressLZSS.SEARCH_BUFFER_BITS);
+                        if (currentBits.getNumOfBits() == CompressLZSS.LOOKAHEAD_BUFFER_BITS) {
+                            int shiftAmount = (8 - CompressLZSS.LOOKAHEAD_BUFFER_BITS);
                             int currentChunkLength = currentBits.getData()[0] >> shiftAmount;
                             currentChunk.length = currentChunkLength;
                             currentBits = new BitBlob();
@@ -66,6 +66,7 @@ public class DecompressLZSS implements Operation {
                             chunks.add(parsedChunk);
                             currentBits = new BitBlob();
                             currentState = DecodingState.Index;
+                            currentChunk = new ImpartialDecodedChunk();
                         }
                         break;
                 }

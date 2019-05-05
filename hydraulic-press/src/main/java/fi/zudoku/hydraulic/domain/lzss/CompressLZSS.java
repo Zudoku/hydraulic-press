@@ -27,8 +27,8 @@ public class CompressLZSS implements Operation {
         // Headers
         
         // chunks into bytes
-        
-        return chunksToBitBlob(chunks).getData();
+        BitBlob blob = chunksToBitBlob(chunks);
+        return blob.getData();
     }
     
     private BitBlob chunksToBitBlob(List<LZChunk> chunks) {

@@ -25,11 +25,16 @@ public class ByteUtils {
         arrayCopy(bytes, 0, newData, 0, bytes.length);
         return newData;
     }
-    
-    public static int getNthBitFromInt(int n, int input) {
-        byte temporary = (byte) ((input >> n) << 7); 
+    // 0 -> right most bit
+    // 7 -> left most bit
+    public static int getNthBitFromByte(int n, byte input) {
+        int a = input & 0xFF;
+        a >>= n;
+        a <<= 7;
+        byte temporary = (byte) (a); 
         
-        int result = (int) temporary;
+        int result = temporary & 0xFF;
+        
         result >>= 7;
         
         return result;
