@@ -25,7 +25,9 @@ public class LZSearchBuffer {
         
         // For now, use this inefficient impelementation of searchbuffer
         for (int i = 0; i < bufferSize; i++) {
-            SearchBufferResult foundMatch = tryToMatch(searchBuffer, index + i, bufferSize - i);
+            int maxMatchLength = Math.min(searchBuffer.length - 1, bufferSize - i);
+            int startIndex = index + i;
+            SearchBufferResult foundMatch = tryToMatch(searchBuffer, startIndex, maxMatchLength);
             if (foundMatch.getLength() >= bestMatch.getLength()){
                 bestMatch = foundMatch;
             }
@@ -38,7 +40,7 @@ public class LZSearchBuffer {
     private SearchBufferResult tryToMatch(byte[] toMatch, int startIndex, int maxLength) {
         int length = 0;
         while(length < maxLength) {
-            if (bufferResultMatchesFound(toMatch, startIndex, length) && bufferSizeIsBigEnoughForMatch(startIndex, length)) {
+            if (bufferSizeIsBigEnoughForMatch(startIndex, length) && bufferResultMatchesFound(toMatch, startIndex, length)) {
                 length++;
             } else {
                 break;
@@ -61,6 +63,9 @@ public class LZSearchBuffer {
     }
 
     private boolean bufferResultMatchesFound(byte[] toMatch, int startIndex, int length) {
-        return toMatch[length] == buffer[calculateBufferIndex(startIndex + length)];
+        byte matched = toMatch[length];
+        byte inBuffer = buffer[calculateBufferIndex(startIndex + length)];
+        
+        return matched == inBuffer;
     }
 }

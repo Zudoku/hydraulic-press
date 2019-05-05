@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 
 public class CompressHuffManCoding implements Operation {
     
-    private final int COMPRESSED_DATA_BUFFER_SIZE = 10000;
+    public static final int COMPRESSED_DATA_BUFFER_SIZE = 10000;
 
     @Override
     public byte[] execute(byte[] input) {

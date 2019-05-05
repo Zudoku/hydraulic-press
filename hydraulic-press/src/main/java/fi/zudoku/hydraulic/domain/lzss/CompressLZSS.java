@@ -1,17 +1,19 @@
 package fi.zudoku.hydraulic.domain.lzss;
 
 import fi.zudoku.hydraulic.domain.Operation;
+import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.lzss.data.LZChunk;
 import fi.zudoku.hydraulic.domain.lzss.data.LZSearchBuffer;
 import fi.zudoku.hydraulic.domain.lzss.data.SearchBufferResult;
+import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CompressLZSS implements Operation {
 
-    private final int searchBufferSize = 1 << 4;
-    private final int lookaheadBufferSize = 1 << 3;
+    public static final int SEARCH_BUFFER_SIZE = 1 << 3;
+    public static final int LOOKAHEAD_BUFFER_SIZE = 1 << 2;
     
     @Override
     public byte[] execute(byte[] input) {
@@ -23,7 +25,26 @@ public class CompressLZSS implements Operation {
         
         // chunks into bytes
         
-        return null;
+        return chunksToBitBlob(chunks).getData();
+    }
+    
+    private BitBlob chunksToBitBlob(List<LZChunk> chunks) {
+        BitBlob compressedData = new BitBlob();
+        // To improve performance, we append smaller bitblobs together first
+        // before appending the larger blobs together
+        BitBlob compressedDataBuffer = new BitBlob();
+        
+        for (int i = 0; i < chunks.size(); i++) {
+            if (i % CompressHuffManCoding.COMPRESSED_DATA_BUFFER_SIZE == 0) {
+                compressedData = BitBlob.append(compressedData, compressedDataBuffer);
+                compressedDataBuffer = new BitBlob();
+            }
+            BitBlob compressed = chunks.get(i).toBitBlob();
+            compressedDataBuffer = BitBlob.append(compressedDataBuffer, compressed);
+        }
+        compressedData = BitBlob.append(compressedData, compressedDataBuffer);
+        
+        return compressedData;
     }
     
     
@@ -31,7 +52,7 @@ public class CompressLZSS implements Operation {
     private List<LZChunk> parseInputIntoChunks(byte[] input) {
         ArrayList<LZChunk> list = new ArrayList<>(); // Replace with custom implementation
         
-        LZSearchBuffer searchBuffer = new LZSearchBuffer(searchBufferSize);
+        LZSearchBuffer searchBuffer = new LZSearchBuffer(SEARCH_BUFFER_SIZE);
         byte[] lookaheadBuffer;
         
         // Loop through byte one at a time
@@ -39,8 +60,8 @@ public class CompressLZSS implements Operation {
             byte currentByte = input[i];
             
             // move lookahead buffer
-            lookaheadBuffer = new byte[lookaheadBufferSize];
-            ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, Math.min(lookaheadBufferSize, input.length - i));
+            lookaheadBuffer = new byte[LOOKAHEAD_BUFFER_SIZE];
+            ByteUtils.arrayCopy(input, i, lookaheadBuffer, 0, Math.min(LOOKAHEAD_BUFFER_SIZE, input.length - i));
             
             // Check if can be found in searchbuffer, if yes, encode that as chunk
             SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(lookaheadBuffer);
