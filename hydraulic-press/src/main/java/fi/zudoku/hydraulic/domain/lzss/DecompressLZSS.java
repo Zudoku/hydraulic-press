@@ -83,7 +83,25 @@ public class DecompressLZSS implements Operation {
             chunks.add(partialChunk);
         }
         
-        return new byte[0];
+        return chunksToBytes(chunks);
+    }
+    
+    private static byte[] chunksToBytes(List<LZChunk> chunks) {
+        byte[] result = new byte[0];
+        for (LZChunk chunk : chunks) {
+            int growAmount = chunk.getLength() + (chunk.isNextByteInvalid() ? 0 : 1);
+            
+            byte[] newResult = new byte[result.length + growAmount];
+            ByteUtils.arrayCopy(result, 0, newResult, 0, result.length);
+            ByteUtils.arrayCopy(result, result.length - chunk.getIndex(), newResult, result.length, chunk.getLength());
+            
+            if (!chunk.isNextByteInvalid()) {
+                newResult[newResult.length - 1] = chunk.getNext();
+            }
+            result = newResult;
+        }
+        
+        return result;
     }
 
 }
