@@ -3,6 +3,7 @@ package fi.zudoku.hydraulic.domain.huffman;
 import fi.zudoku.hydraulic.domain.Operation;
 import fi.zudoku.hydraulic.domain.generic.MinHeap;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
+import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
@@ -51,33 +52,33 @@ public class CompressHuffManCoding implements Operation {
      * @return a complete HuffmanTree.
      */
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
-        MinHeap<HuffmanLeafNode> nodes = buildMinHeapFromInput(input);
+        MinHeap nodes = buildMinHeapFromInput(input);
         
         HuffmanLeafNode[] result = new HuffmanLeafNode[nodes.size()];
         int size = nodes.size();
         for (int i = 0; i < size; i++) {
-            result[i] = nodes.poll();
+            result[i] = (HuffmanLeafNode) nodes.poll();
         }
         
         return new HuffmanTree(result);
     }
     
-    private static MinHeap<HuffmanLeafNode> buildMinHeapFromInput(byte[] input) {
-        MinHeap<HuffmanLeafNode> nodes = new MinHeap<>();
+    private static MinHeap buildMinHeapFromInput(byte[] input) {
+        MinHeap nodes = new MinHeap();
+        HuffmanLeafNode[] index = new HuffmanLeafNode[256];
         for (byte data: input) {
             HuffmanLeafNode nodeToAdd = new HuffmanLeafNode(data, 1);
             
-            if (nodes.contains(nodeToAdd)) {
-                for (HuffmanLeafNode node : ) {
-                    if (node.equals(nodeToAdd)) {
-                        node.addOne();
-                    }
-                }
+            HuffmanLeafNode foundNode = index[data & 0xFF];
+            if (foundNode != null) {
+                foundNode.addOne();
             } else {
                 nodes.add(nodeToAdd);
+                index[data & 0xFF] = nodeToAdd;
             }
         }
-        return new PriorityQueue<>(nodes);
+        nodes.reOrder();
+        return nodes;
     }
     
     /**

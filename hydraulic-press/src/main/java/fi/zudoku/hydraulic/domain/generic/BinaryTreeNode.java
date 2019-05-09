@@ -1,7 +1,7 @@
 package fi.zudoku.hydraulic.domain.generic;
 
 public class BinaryTreeNode<T> {
-    private final int value;
+    private final int key;
     private final T result;
     private BinaryTreeNode left;
     private BinaryTreeNode right;
@@ -12,7 +12,7 @@ public class BinaryTreeNode<T> {
      * @param result a value that should be contained in the node.
      */
     public BinaryTreeNode(int key, T result) {
-        this.value = key;
+        this.key = key;
         this.result = result;
         right = null;
         left = null;
@@ -26,8 +26,8 @@ public class BinaryTreeNode<T> {
         return right;
     }
 
-    public int getValue() {
-        return value;
+    public int getKey() {
+        return key;
     }
 
     public void setLeft(BinaryTreeNode left) {

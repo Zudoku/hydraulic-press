@@ -22,21 +22,19 @@ public class BinaryTree<T> {
             return new BinaryTreeNode(key, result);
         }
  
-        if (key < current.getValue()) {
+        if (key < current.getKey()) {
             BinaryTreeNode newLeft = add(current.getLeft(), key, result);
             current.setLeft(newLeft);
-        } else if (key > current.getValue()) {
+        } else {
             BinaryTreeNode newRight = add(current.getRight(), key, result);
             current.setRight(newRight);
-        } else {
-            return current;
         }
  
         return current;
     }
     
     /**
-     * Finds the result with the given value.
+     * Finds the result with the given key.
      * @param key some value that matches the one given in the add method.
      * @return found result, or null if not found.
      */
@@ -48,11 +46,11 @@ public class BinaryTree<T> {
         if (node == null) {
             return null;
         }
-        if (node.getValue() == key) {
+        if (node.getKey() == key) {
             return node.getResult();
         }
         
-        if (node.getValue() > key) {
+        if (node.getKey() > key) {
             return find(node.getLeft(), key);
         } else {
             return find(node.getRight(), key);
@@ -68,10 +66,10 @@ public class BinaryTree<T> {
             return null;
         }
  
-        if (key == node.getValue()) {
+        if (key == node.getKey()) {
             return removeNode(node);
         } 
-        if (key < node.getValue()) {
+        if (key < node.getKey()) {
             node.setLeft(remove(node.getLeft(), key));
             return node;
         }
@@ -93,17 +91,35 @@ public class BinaryTree<T> {
        
         BinaryTreeNode minNode = findMinNode(nodeToBeRemoved.getRight());
        
-        BinaryTreeNode replacement = new BinaryTreeNode(minNode.getValue(), minNode.getResult());
+        BinaryTreeNode replacement = new BinaryTreeNode(minNode.getKey(), minNode.getResult());
         replacement.setLeft(nodeToBeRemoved.getLeft());
-        replacement.setRight(remove(nodeToBeRemoved.getRight(), minNode.getValue()));
+        replacement.setRight(remove(nodeToBeRemoved.getRight(), minNode.getKey()));
         return replacement;
     }
     
     private BinaryTreeNode findMinNode(BinaryTreeNode node) {
         return node.getLeft() == null ? node : findMinNode(node.getLeft());
     }
+    
+    public BinaryTreeNode<T> findMinNode() {
+        return findMinNode(rootNode);
+    }
 
     public BinaryTreeNode<T> getRootNode() {
         return rootNode;
+    }
+    
+    public int size() {
+        return size(rootNode);
+    }
+    
+    private int size(BinaryTreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftSize = size(node.getLeft());
+        int rightSize = size(node.getRight());
+        
+        return 1 + leftSize + rightSize;
     }
 }

@@ -1,20 +1,36 @@
 package fi.zudoku.hydraulic.domain.generic;
 
-public class MinHeap <T> {
+import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 
-    public boolean contains(T a) {
-        return true;
-    }
+public class MinHeap {
     
-    public void add(T a) {
-        
+    private BinaryTree<HuffmanNode> binaryTree = new BinaryTree<>();
+    
+    public void add(HuffmanNode a) {
+        binaryTree.add(a.getAmount(), a);
     }
     
     public int size(){
-        return 1;
+        return binaryTree.size();
     }
     
-    public T poll() {
+    public HuffmanNode poll() {
+        BinaryTreeNode<HuffmanNode> minNode = binaryTree.findMinNode();
+        if (minNode != null) {
+            binaryTree.remove(minNode.getKey());
+            return minNode.getResult();
+        }
         return null;
+    }
+    
+    public void reOrder() {
+        BinaryTree<HuffmanNode> replacementBinaryTree = new BinaryTree<>();
+        
+        while(binaryTree.getRootNode() != null) {
+            HuffmanNode minNode = poll();
+            replacementBinaryTree.add(minNode.getAmount(), minNode);
+        }
+        
+        binaryTree = replacementBinaryTree;
     }
 }
