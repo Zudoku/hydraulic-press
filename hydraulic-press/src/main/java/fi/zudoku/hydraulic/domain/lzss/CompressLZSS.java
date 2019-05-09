@@ -12,8 +12,8 @@ import java.util.List;
 
 public class CompressLZSS implements Operation {
     
-    public static final int SEARCH_BUFFER_BITS = 3;
-    public static final int LOOKAHEAD_BUFFER_BITS = 2;
+    public static final int SEARCH_BUFFER_BITS = 7;
+    public static final int LOOKAHEAD_BUFFER_BITS = 3;
 
     public static final int SEARCH_BUFFER_SIZE = (1 << SEARCH_BUFFER_BITS) - 1;
     public static final int LOOKAHEAD_BUFFER_SIZE = (1 << LOOKAHEAD_BUFFER_BITS) - 1;

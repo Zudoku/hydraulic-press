@@ -8,4 +8,9 @@ public class EndToEndTest {
     public void testHuffmanCodingWorksEndToEnd() {
         
     }
+    
+    @Test
+    public void testLZ77WorksEndToEnd() {
+        
+    }
 }
