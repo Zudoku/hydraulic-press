@@ -10,23 +10,23 @@ public class BinaryTree<T> {
 
     /**
      * Adds a new node into the binary tree, if it is not already in the tree.
-     * @param value of the node.
+     * @param key of the node.
      * @param result a value that should be contained in the node.
      */
-    public void add(byte value, T result) {
-        rootNode = add(rootNode, value, result);
+    public void add(byte key, T result) {
+        rootNode = add(rootNode, key, result);
     }
     
-    private BinaryTreeNode add(BinaryTreeNode current, byte value, T result) {
+    private BinaryTreeNode add(BinaryTreeNode current, byte key, T result) {
         if (current == null) {
-            return new BinaryTreeNode(value, result);
+            return new BinaryTreeNode(key, result);
         }
  
-        if (value < current.getValue()) {
-            BinaryTreeNode newLeft = add(current.getLeft(), value, result);
+        if (key < current.getValue()) {
+            BinaryTreeNode newLeft = add(current.getLeft(), key, result);
             current.setLeft(newLeft);
-        } else if (value > current.getValue()) {
-            BinaryTreeNode newRight = add(current.getRight(), value, result);
+        } else if (key > current.getValue()) {
+            BinaryTreeNode newRight = add(current.getRight(), key, result);
             current.setRight(newRight);
         } else {
             return current;
@@ -37,25 +37,25 @@ public class BinaryTree<T> {
     
     /**
      * Finds the result with the given value.
-     * @param value some value that matches the one given in the add method.
+     * @param key some value that matches the one given in the add method.
      * @return found result, or null if not found.
      */
-    public T find(byte value) {
-        return find(rootNode, value);
+    public T find(byte key) {
+        return find(rootNode, key);
     }
     
-    private T find(BinaryTreeNode<T> node, byte value) {
+    private T find(BinaryTreeNode<T> node, byte key) {
         if (node == null) {
             return null;
         }
-        if (node.getValue() == value) {
+        if (node.getValue() == key) {
             return node.getResult();
         }
         
-        if (node.getValue() > value) {
-            return find(node.getLeft(), value);
+        if (node.getValue() > key) {
+            return find(node.getLeft(), key);
         } else {
-            return find(node.getRight(), value);
+            return find(node.getRight(), key);
         }
     }
 

@@ -1,6 +1,7 @@
 package fi.zudoku.hydraulic.domain.huffman;
 
 import fi.zudoku.hydraulic.domain.Operation;
+import fi.zudoku.hydraulic.domain.generic.MinHeap;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
@@ -8,7 +9,6 @@ import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;
 import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
 import static fi.zudoku.hydraulic.util.ByteUtils.putIntegerIntoByteArray;
-import java.util.PriorityQueue;
 
 public class CompressHuffManCoding implements Operation {
     
@@ -51,7 +51,7 @@ public class CompressHuffManCoding implements Operation {
      * @return a complete HuffmanTree.
      */
     public static HuffmanTree buildHuffmanTreeFromInput(byte[] input) {
-        PriorityQueue<HuffmanLeafNode> nodes = buildMinHeapFromInput(input);
+        MinHeap<HuffmanLeafNode> nodes = buildMinHeapFromInput(input);
         
         HuffmanLeafNode[] result = new HuffmanLeafNode[nodes.size()];
         int size = nodes.size();
@@ -62,13 +62,13 @@ public class CompressHuffManCoding implements Operation {
         return new HuffmanTree(result);
     }
     
-    private static PriorityQueue<HuffmanLeafNode> buildMinHeapFromInput(byte[] input) {
-        PriorityQueue<HuffmanLeafNode> nodes = new PriorityQueue<>();
+    private static MinHeap<HuffmanLeafNode> buildMinHeapFromInput(byte[] input) {
+        MinHeap<HuffmanLeafNode> nodes = new MinHeap<>();
         for (byte data: input) {
             HuffmanLeafNode nodeToAdd = new HuffmanLeafNode(data, 1);
             
             if (nodes.contains(nodeToAdd)) {
-                for (HuffmanLeafNode node : nodes) {
+                for (HuffmanLeafNode node : ) {
                     if (node.equals(nodeToAdd)) {
                         node.addOne();
                     }

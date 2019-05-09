@@ -10,8 +10,8 @@ public class MinHeap <T> {
         
     }
     
-    public void size(){
-        
+    public int size(){
+        return 1;
     }
     
     public T poll() {
