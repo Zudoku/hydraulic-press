@@ -35,6 +35,7 @@ Windows:
 Yksikkötestien tulokset näet kansiosta `./build/test-results/test/`
 
 Jar tiedosto voidaan luoda komennolla `gradle :jar`.
+
 Jar tiedosto löytyy kansiosta  `/build./libs./hydraulic-press.jar`.
 
 ### Suorituskyky-testaus
@@ -46,4 +47,31 @@ Testin voi suorittaa seuraavilla komennoilla (.bat skripti)
 ```./huffmanCodingTest.bat```
 
 ## Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
-TODO
+
+
+### Tulokset taulukossa:
+
+#### HUFFMAN CODING
+
+| FILE | ORIGINAL (B) | COMPRESSED (B) | TIME-COMPRESSION (MS) | TIME-UNCOMPRESSION (MS) |
+|------|----------|------------|------------------|--------------------|
+|   1  |   9671   |    5354    |        29        |         26         |
+|   2  |   24731  |    17966   |        57        |         69         |
+|   3  |  465995  |   260646   |       15454      |        15454       |
+|   4  |    12    |     23     |         4        |          4         |
+|   5  |   7814   |    5508    |        26        |         22         |
+|   6  |   25347  |    16067   |        52        |         86         |
+
+
+#### LZ 77
+
+| FILE | ORIGINAL (B) | COMPRESSED (B) | TIME-COMPRESSION (MS) | TIME-UNCOMPRESSION (MS) |
+|------|----------|------------|------------------|--------------------|
+|   1  |   9671   |    8030    |        94        |         87         |
+|   2  |   24731  |    19552   |        254       |         322        |
+|   3  |  465995  |   328129   |       37104      |        40749       |
+|   4  |    12    |     15     |         4        |          4         |
+|   5  |   7814   |    5499    |        51        |         44         |
+|   6  |   25347  |    22771   |        313       |         401        |
+
+
