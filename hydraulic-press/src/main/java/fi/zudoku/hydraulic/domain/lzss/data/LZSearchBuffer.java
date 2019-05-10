@@ -8,6 +8,10 @@ public class LZSearchBuffer {
     private final byte[] buffer;
     private int bufferIndex = 0;
 
+    /**
+     * Custom implementation of a Lempel Ziv 77 search buffer.
+     * @param bufferSize 
+     */
     public LZSearchBuffer(int bufferSize) {
         this.buffer = new byte[bufferSize];
     }
@@ -44,7 +48,7 @@ public class LZSearchBuffer {
             SearchBufferResult foundMatch = tryToMatch(toMatch, startIndex, maxMatchLength);
             // Because of a bug, we need to validate that the index is OK too.
             // Couldnt find the cause of this bug, so just invalidate the finding, if index is bad.
-            if (foundMatch.getLength() >= bestMatch.getLength() && foundMatch.getIndex() <= bufferIndex){
+            if (foundMatch.getLength() >= bestMatch.getLength() && foundMatch.getIndex() <= bufferIndex) {
                 bestMatch = foundMatch;
             }
         }
@@ -55,7 +59,7 @@ public class LZSearchBuffer {
     // maxlength = maximum length for match
     private SearchBufferResult tryToMatch(byte[] toMatch, int startIndex, int maxLength) {
         int length = 0;
-        while(length < maxLength) {
+        while (length < maxLength) {
             if (bufferResultMatchesFound(toMatch, startIndex, length)) {
                 length++;
             } else {

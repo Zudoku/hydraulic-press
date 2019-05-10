@@ -12,7 +12,7 @@ public class HydraulicPressArguments {
      * Command line arguments in a defined structure.
      * @param operation what operation should we do for the data.
      * @param data bytes to manipulate.
-     * @param inputFilename
+     * @param inputFilename filepath to read
      */
 
     public HydraulicPressArguments(Operations operation, byte[] data, String inputFilename) {

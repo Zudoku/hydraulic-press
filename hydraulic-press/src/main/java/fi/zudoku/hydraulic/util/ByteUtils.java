@@ -77,7 +77,7 @@ public class ByteUtils {
         if (length != 0) {
             try {
                 System.arraycopy(from, fromIndex, to, toIndex, length);
-            } catch( Exception e) {
+            } catch (Exception e) {
                 System.out.println("Tried to perform arrayCopy with bad parameters. This might cause data to be corrupted.");
             }
         }

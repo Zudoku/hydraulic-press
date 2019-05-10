@@ -6,6 +6,12 @@ public class SearchBufferResult {
     private final int index;
     private final int length;
 
+    /**
+     * The result of the search buffer search operation.
+     * @param foundMatch if a match was found
+     * @param index delta of where the match is
+     * @param length how many bytes matched
+     */
     public SearchBufferResult(boolean foundMatch, int index, int length) {
         this.foundMatch = foundMatch;
         this.index = index;
@@ -20,6 +26,10 @@ public class SearchBufferResult {
         return length;
     }
 
+    /**
+     * If a match was found.
+     * @return true or false
+     */
     public boolean foundMatch() {
         return foundMatch;
     }

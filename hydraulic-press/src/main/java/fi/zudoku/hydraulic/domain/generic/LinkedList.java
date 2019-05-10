@@ -1,7 +1,7 @@
 package fi.zudoku.hydraulic.domain.generic;
 
 /**
- * Custom Linked list implementation
+ * Custom Linked list implementation.
  * @param <T> class that this list contains
  */
 public class LinkedList<T> {
@@ -36,7 +36,7 @@ public class LinkedList<T> {
     }
     
     /**
-     * Finds the element in the given index, or null
+     * Finds the element in the given index, or null.
      * @param index 0-(size() -1)
      * @return element in the given index or null
      */
@@ -45,8 +45,8 @@ public class LinkedList<T> {
         LinkedListNode<T> result = first;
         
         // Traverse the nodes until null, or index is correct.
-        while(true) {
-            if(currentIndex == 0 || result == null) {
+        while (true) {
+            if (currentIndex == 0 || result == null) {
                 break;
             } else {
                 result = result.getNext();

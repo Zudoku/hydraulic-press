@@ -5,7 +5,11 @@ public class LinkedListNode<T> {
     private final T value;
     private LinkedListNode<T> next = null;
     
-    public LinkedListNode(T value){
+    /**
+     * A node in the linked list.
+     * @param value value this node contains
+     */
+    public LinkedListNode(T value) {
         this.value = value;
     }
 

@@ -25,7 +25,7 @@ public class FileUtils {
     }
     
     /**
-     * Saves the contents of the byte array into a file
+     * Saves the contents of the byte array into a file.
      * @param data contents of the file
      * @param filepath where to save the file
      * @throws IOException if no permissions for the file or we have some other problem.

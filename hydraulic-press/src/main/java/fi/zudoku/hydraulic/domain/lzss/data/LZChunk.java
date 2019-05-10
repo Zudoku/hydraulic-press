@@ -5,7 +5,7 @@ import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
 
 /**
- * LZ77 Triple
+ * LZ77 Triple.
  * This represents the triples that are parsed from the input for LZ77 compression
  */
 public class LZChunk {
@@ -16,7 +16,7 @@ public class LZChunk {
     private boolean nextByteInvalid = false;
 
     /**
-     * 
+     * A tripe which contains last occurence of the binary array, length and next byte.
      * @param index delta into the last occurence of the chunk, 1 = the previous byte, 0 = no occurence found
      * @param length how many bytes to copy
      * @param next next byte 

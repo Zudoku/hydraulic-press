@@ -17,10 +17,10 @@ public class MinHeap {
         binaryTree.add(a.getAmount(), a);
     }
     /**
-     * Calculates how many elements are in the heap
+     * Calculates how many elements are in the heap.
      * @return heap size
      */
-    public int size(){
+    public int size() {
         return binaryTree.size();
     }
     
@@ -44,7 +44,7 @@ public class MinHeap {
     public void reOrder() {
         BinaryTree<HuffmanNode> replacementBinaryTree = new BinaryTree<>();
         
-        while(binaryTree.getRootNode() != null) {
+        while (binaryTree.getRootNode() != null) {
             HuffmanNode minNode = poll();
             replacementBinaryTree.add(minNode.getAmount(), minNode);
         }

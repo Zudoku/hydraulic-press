@@ -56,7 +56,7 @@ public class CompressLZSS implements Operation {
         byte[] lookaheadBuffer;
         
         // Loop through byte one at a time
-        for(int i = 0; i < input.length; i++) {
+        for (int i = 0; i < input.length; i++) {
             byte currentByte = input[i];
             
             // move lookahead buffer
