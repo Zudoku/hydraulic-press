@@ -64,7 +64,7 @@ Testin voi suorittaa seuraavilla komennoilla (.bat skripti)
 
 ![kompressio](/dokumentaatio/huffman.png "Kompressio huffman coding")
 
-#### LZ 77
+#### LZ 77 (hakubufferi 7 bit, lookahead bufferi 3 bit)
 
 | FILE | ORIGINAL (B) | COMPRESSED (B) | TIME-COMPRESSION (MS) | TIME-UNCOMPRESSION (MS) |
 |------|----------|------------|------------------|--------------------|
