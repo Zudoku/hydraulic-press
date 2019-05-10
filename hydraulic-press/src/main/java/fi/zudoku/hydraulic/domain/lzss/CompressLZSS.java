@@ -1,14 +1,13 @@
 package fi.zudoku.hydraulic.domain.lzss;
 
 import fi.zudoku.hydraulic.domain.Operation;
+import fi.zudoku.hydraulic.domain.generic.LinkedList;
 import fi.zudoku.hydraulic.domain.huffman.CompressHuffManCoding;
 import fi.zudoku.hydraulic.domain.lzss.data.LZChunk;
 import fi.zudoku.hydraulic.domain.lzss.data.LZSearchBuffer;
 import fi.zudoku.hydraulic.domain.lzss.data.SearchBufferResult;
 import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CompressLZSS implements Operation {
     
@@ -22,7 +21,7 @@ public class CompressLZSS implements Operation {
     public byte[] execute(byte[] input) {
         
         // Parse input into chunks
-        List<LZChunk> chunks = parseInputIntoChunks(input);
+        LinkedList<LZChunk> chunks = parseInputIntoChunks(input);
         
         // Headers
         
@@ -31,7 +30,7 @@ public class CompressLZSS implements Operation {
         return blob.getData();
     }
     
-    private BitBlob chunksToBitBlob(List<LZChunk> chunks) {
+    private BitBlob chunksToBitBlob(LinkedList<LZChunk> chunks) {
         BitBlob compressedData = new BitBlob();
         // To improve performance, we append smaller bitblobs together first
         // before appending the larger blobs together
@@ -52,8 +51,8 @@ public class CompressLZSS implements Operation {
     
     
     
-    private List<LZChunk> parseInputIntoChunks(byte[] input) {
-        ArrayList<LZChunk> list = new ArrayList<>(); // Replace with custom implementation
+    private LinkedList<LZChunk> parseInputIntoChunks(byte[] input) {
+        LinkedList<LZChunk> list = new LinkedList<>();
         
         LZSearchBuffer searchBuffer = new LZSearchBuffer(SEARCH_BUFFER_SIZE);
         byte[] lookaheadBuffer;
@@ -70,7 +69,7 @@ public class CompressLZSS implements Operation {
             SearchBufferResult searchBufferResult = searchBuffer.findBestMatch(lookaheadBuffer);
             LZChunk chunk;
             if (searchBufferResult.foundMatch()) {
-                boolean lastChunk = i + searchBufferResult.getLength() == (input.length);
+                boolean lastChunk = i + searchBufferResult.getLength() >= (input.length);
                 byte nextByte = (lastChunk) ? 0 : input[i + searchBufferResult.getLength()];
                 chunk = new LZChunk(searchBufferResult.getIndex(), searchBufferResult.getLength(), nextByte);
                 

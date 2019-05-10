@@ -1,12 +1,11 @@
 package fi.zudoku.hydraulic.domain.huffman.data;
 
 import fi.zudoku.hydraulic.domain.generic.BinaryTree;
+import fi.zudoku.hydraulic.domain.generic.MinHeap;
 import fi.zudoku.hydraulic.util.BitBlob;
-import java.util.PriorityQueue;
 
 /**
  * This represents a complete Huffman tree. 
- * The tree must be initialized before usage, with the *initialize* method
  * 
  * This class contains a reference to the root node of the tree.
  * After calling the initialize method, 
@@ -26,7 +25,7 @@ public class HuffmanTree {
      * @param inputNodes min heap of leaf nodes in the huffman tree
      */
     public HuffmanTree(HuffmanLeafNode[] inputNodes) {
-        PriorityQueue<HuffmanNode> nodes = new PriorityQueue<>();
+        MinHeap nodes = new MinHeap();
         
         for (int i = 0; i < inputNodes.length; i++) {
             HuffmanLeafNode currentNode = inputNodes[i];

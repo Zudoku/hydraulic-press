@@ -3,7 +3,6 @@ package fi.zudoku.hydraulic.domain.huffman;
 import fi.zudoku.hydraulic.domain.Operation;
 import fi.zudoku.hydraulic.domain.generic.MinHeap;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanLeafNode;
-import fi.zudoku.hydraulic.domain.huffman.data.HuffmanNode;
 import fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.DYNAMIC_CHUNK_SIZE;
 import static fi.zudoku.hydraulic.domain.huffman.data.HuffmanTree.HEADER_BYTES;

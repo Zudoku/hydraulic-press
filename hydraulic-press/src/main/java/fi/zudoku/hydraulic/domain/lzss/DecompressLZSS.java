@@ -1,12 +1,11 @@
 package fi.zudoku.hydraulic.domain.lzss;
 
 import fi.zudoku.hydraulic.domain.Operation;
+import fi.zudoku.hydraulic.domain.generic.LinkedList;
 import fi.zudoku.hydraulic.domain.lzss.data.LZChunk;
 
 import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DecompressLZSS implements Operation {
     
@@ -21,7 +20,7 @@ public class DecompressLZSS implements Operation {
 
     @Override
     public byte[] execute(byte[] input) {
-        List<LZChunk> chunks = new ArrayList<>();
+        LinkedList<LZChunk> chunks = new LinkedList<>();
         
         DecodingState currentState = DecodingState.Index;
         ImpartialDecodedChunk currentChunk = new ImpartialDecodedChunk();
@@ -86,9 +85,10 @@ public class DecompressLZSS implements Operation {
         return chunksToBytes(chunks);
     }
     
-    private static byte[] chunksToBytes(List<LZChunk> chunks) {
+    private static byte[] chunksToBytes(LinkedList<LZChunk> chunks) {
         byte[] result = new byte[0];
-        for (LZChunk chunk : chunks) {
+        for (int i = 0; i < chunks.size(); i++) {
+            LZChunk chunk = chunks.get(i);
             int growAmount = chunk.getLength() + (chunk.isNextByteInvalid() ? 0 : 1);
             
             byte[] newResult = new byte[result.length + growAmount];
