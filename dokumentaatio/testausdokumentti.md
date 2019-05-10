@@ -57,7 +57,7 @@ Testin voi suorittaa seuraavilla komennoilla (.bat skripti)
 |------|----------|------------|------------------|--------------------|
 |   testdata1.txt  |   9671   |    5354    |        29        |         26         |
 |   testdata2.txt  |   24731  |    17966   |        57        |         69         |
-|   testdata3txt  |  465995  |   260646   |       15454      |        15454       |
+|   testdata3txt  |  465995  |   260646   |       480       |        15454       |
 |   testdata4.txt  |    12    |     23     |         4        |          4         |
 |   testdata5.txt  |   7814   |    5508    |        26        |         22         |
 |   testdata6.txt  |   25347  |    16067   |        52        |         86         |
