@@ -26,7 +26,7 @@ public class LZSearchBuffer {
             int maxMatchLength = Math.min(Math.min(buffer.length - bufferIterator, bufferIndex), toMatch.length - 1);
             int startIndex = bufferIndex + bufferIterator;
             SearchBufferResult foundMatch = tryToMatch(toMatch, startIndex, maxMatchLength);
-            if (foundMatch.getLength() >= bestMatch.getLength()){
+            if (foundMatch.getLength() >= bestMatch.getLength() && foundMatch.getIndex() <= bufferIndex){
                 bestMatch = foundMatch;
             }
         }
