@@ -62,6 +62,7 @@ Testin voi suorittaa seuraavilla komennoilla (.bat skripti)
 |   testdata5.txt  |   7814   |    5508    |        26        |         22         |
 |   testdata6.txt  |   25347  |    16067   |        52        |         86         |
 
+![kompressio](/dokumentaatio/huffman.png "Kompressio huffman coding")
 
 #### LZ 77
 
@@ -74,4 +75,5 @@ Testin voi suorittaa seuraavilla komennoilla (.bat skripti)
 |   testdata5.txt  |   7814   |    5499    |        51        |         44         |
 |   testdata6.txt  |   25347  |    22771   |        313       |         401        |
 
+![kompressio](/dokumentaatio/lz77.png "Kompressio lz77")
 
