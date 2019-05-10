@@ -3,6 +3,7 @@ package fi.zudoku.hydraulic.domain.generic;
 
 /**
  * Binary search tree.
+ * NOTE: this binary tree is not balanced.
  */
 public class BinaryTree<T> {
     
@@ -57,6 +58,11 @@ public class BinaryTree<T> {
         }
     }
     
+    /**
+     * Removes the result with the given key.
+     * If nothing is found, does not do anything.
+     * @param key some value that matches the one given in the add method.
+     */
     public void remove(int key) {
         rootNode = remove(rootNode, key);
     }
@@ -101,14 +107,26 @@ public class BinaryTree<T> {
         return node.getLeft() == null ? node : findMinNode(node.getLeft());
     }
     
+    /**
+     * Finds the node with the smallest value in the binary tree.
+     * @return BinaryTreeNode<T> with the smallest value or *null*
+     */
     public BinaryTreeNode<T> findMinNode() {
         return findMinNode(rootNode);
     }
 
+    /**
+     * Returns the topmost node of this binary tree.
+     * @return rootNode or null
+     */
     public BinaryTreeNode<T> getRootNode() {
         return rootNode;
     }
     
+    /**
+     * Calculates how many nodes are in this Binary Tree.
+     * @return how many nodes there are
+     */
     public int size() {
         return size(rootNode);
     }

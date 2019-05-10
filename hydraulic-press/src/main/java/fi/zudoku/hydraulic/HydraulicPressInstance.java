@@ -46,19 +46,33 @@ public class HydraulicPressInstance {
         
         return compressHuffmanCoding.execute(arguments.getData());
     }
-    
+    /**
+     * This performs Huffman Coding decompression algorithm to the given input data and outputs the result as a byte array.
+     * @see *compressHuffman*
+     * @param arguments this contains the input data and any additional parameters
+     * @return original data
+     */
     private byte[] decompressHuffman(HydraulicPressArguments arguments) {
         DecompressHuffManCoding decompressHuffmanCoding = new DecompressHuffManCoding();
         
         return decompressHuffmanCoding.execute(arguments.getData());
     }
-
+    /**
+     * This performs Lempel Ziv 77 compression algorithm to the given input data and outputs the result as a byte array.
+     * @param arguments this contains the input data and any additional parameters
+     * @return Lempel Ziv 77 compressed data of original data given in the arguments
+     */
     private byte[] compressLZ77(HydraulicPressArguments arguments) {
         CompressLZSS compressLZSS = new CompressLZSS();
         
         return compressLZSS.execute(arguments.getData());
     }
-    
+    /**
+     * This performs Lempel Ziv 77 decompression algorithm to the given input data and outputs the result as a byte array.
+     * @see *compressLZ77*
+     * @param arguments this contains the input data and any additional parameters
+     * @return original data
+     */
     private byte[] decompressLZ77(HydraulicPressArguments arguments) {
         DecompressLZSS decompressLZSS = new DecompressLZSS();
         return decompressLZSS.execute(arguments.getData());

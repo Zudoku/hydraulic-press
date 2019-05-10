@@ -31,6 +31,9 @@ public class ArgumentBuilder {
         return null;
     }
     
+    /**
+     * Prints the "help" menu for the program.
+     */
     public static void printHelp() {
         System.out.println("Usage: java -jar hydraulic-press.jar [FILENAME] [OPERATION]");
         System.out.println("");

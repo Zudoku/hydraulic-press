@@ -30,13 +30,15 @@ public class DecompressLZSS implements Operation {
             byte byteToHandle = input[index];
             
             for (byte bit = 0; bit < 8; bit++) {
+                // Go through input one bit at a time
+                // and parse values
                 int currentBitFromByte = ByteUtils.getNthBitFromByte(7 - bit, byteToHandle);
                 if (currentBitFromByte == 0) {
                     currentBits.appendZero();
                 } else {
                     currentBits.appendOne();
                 }
-                
+                // check if the state is finished
                 switch (currentState) {
                     case Index:
                         if (currentBits.getNumOfBits() == CompressLZSS.SEARCH_BUFFER_BITS) {
@@ -75,7 +77,7 @@ public class DecompressLZSS implements Operation {
                 }
             }
         }
-        
+        // If the last chunk is a partial chunk with no "next" byte, take that into consideration
         if (currentChunk.index != 0 && currentChunk.length != 0) {
             LZChunk partialChunk = new LZChunk(currentChunk.index, currentChunk.length, (byte) 0);
             partialChunk.setNextByteInvalid(true);
@@ -87,6 +89,7 @@ public class DecompressLZSS implements Operation {
     
     private static byte[] chunksToBytes(LinkedList<LZChunk> chunks) {
         byte[] result = new byte[0];
+        // Go trought chunks and decode them one by one, into byte array
         for (int i = 0; i < chunks.size(); i++) {
             LZChunk chunk = chunks.get(i);
             int growAmount = chunk.getLength() + (chunk.isNextByteInvalid() ? 0 : 1);

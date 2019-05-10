@@ -26,6 +26,8 @@ public class CompressHuffManCoding implements Operation {
         BitBlob compressedDataBuffer = new BitBlob();
         for (int i = 0; i < input.length; i++) {
             if (i % COMPRESSED_DATA_BUFFER_SIZE == 0) {
+                // Instead of appending every bitblob into each other
+                // append smaller ones first to reduce computation time
                 compressedData = BitBlob.append(compressedData, compressedDataBuffer);
                 compressedDataBuffer = new BitBlob();
             }
@@ -67,7 +69,7 @@ public class CompressHuffManCoding implements Operation {
         HuffmanLeafNode[] index = new HuffmanLeafNode[256];
         for (byte data: input) {
             HuffmanLeafNode nodeToAdd = new HuffmanLeafNode(data, 1);
-            
+            // data & 0xFF => turn signed value into unsigned
             HuffmanLeafNode foundNode = index[data & 0xFF];
             if (foundNode != null) {
                 foundNode.addOne();

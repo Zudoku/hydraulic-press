@@ -2,7 +2,6 @@ package fi.zudoku.hydraulic.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -25,6 +24,12 @@ public class FileUtils {
         return result;
     }
     
+    /**
+     * Saves the contents of the byte array into a file
+     * @param data contents of the file
+     * @param filepath where to save the file
+     * @throws IOException if no permissions for the file or we have some other problem.
+     */
     public static void saveByteArrayIntoFile(byte[] data, String filepath) throws IOException {
         File fileToLoad = new File(filepath);
         fileToLoad.createNewFile();

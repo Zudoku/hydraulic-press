@@ -25,8 +25,15 @@ public class ByteUtils {
         arrayCopy(bytes, 0, newData, 0, bytes.length);
         return newData;
     }
-    // 0 -> right most bit
-    // 7 -> left most bit
+    
+    /**
+     * Calculates the n:th bit in the given byte.
+     * n = 0 -> right most bit
+     * n = 7 -> left most bit
+     * @param n number of bit 
+     * @param input byte to calculate bits from
+     * @return 1 or 0
+     */
     public static int getNthBitFromByte(int n, byte input) {
         int a = input & 0xFF;
         a >>= n;
@@ -56,17 +63,23 @@ public class ByteUtils {
         return bytes;
     }
     
+    /**
+     * Copies the contents of one array into another
+     * Since this can be done easily with for loops, 
+     * I am going to assume that this utility function provided by java platform is ok to use.
+     * @param from array which to copy from
+     * @param fromIndex index of where to start copying from
+     * @param to array which to copy to
+     * @param toIndex index of where to start copying to
+     * @param length of how many elements to copy
+     */
     public static void arrayCopy(byte[] from, int fromIndex, byte[] to, int toIndex, int length) {
-        // Replace this with custom implementation if not allowed?
         if (length != 0) {
-            
             try {
                 System.arraycopy(from, fromIndex, to, toIndex, length);
             } catch( Exception e) {
-                System.out.println("asd");
+                System.out.println("Tried to perform arrayCopy with bad parameters. This might cause data to be corrupted.");
             }
-            
-            
         }
     }
 }

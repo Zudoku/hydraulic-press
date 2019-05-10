@@ -23,8 +23,6 @@ public class CompressLZSS implements Operation {
         // Parse input into chunks
         LinkedList<LZChunk> chunks = parseInputIntoChunks(input);
         
-        // Headers
-        
         // chunks into bytes
         BitBlob blob = chunksToBitBlob(chunks);
         return blob.getData();

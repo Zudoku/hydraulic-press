@@ -4,6 +4,10 @@ import fi.zudoku.hydraulic.domain.lzss.CompressLZSS;
 import fi.zudoku.hydraulic.util.BitBlob;
 import fi.zudoku.hydraulic.util.ByteUtils;
 
+/**
+ * LZ77 Triple
+ * This represents the triples that are parsed from the input for LZ77 compression
+ */
 public class LZChunk {
     private final int index;
     private final int length;
@@ -11,6 +15,12 @@ public class LZChunk {
     
     private boolean nextByteInvalid = false;
 
+    /**
+     * 
+     * @param index delta into the last occurence of the chunk, 1 = the previous byte, 0 = no occurence found
+     * @param length how many bytes to copy
+     * @param next next byte 
+     */
     public LZChunk(int index, int length, byte next) {
         this.index = index;
         this.length = length;
@@ -36,7 +46,10 @@ public class LZChunk {
     public boolean isNextByteInvalid() {
         return nextByteInvalid;
     }
-    
+    /**
+     * Encodes this into bits.
+     * @return Bitblob that is encoded.
+     */
     public BitBlob toBitBlob() {
         BitBlob result = new BitBlob();
         
@@ -54,6 +67,12 @@ public class LZChunk {
         return result;
     }
     
+    /**
+     * Appends the byte into the given bitblob
+     * @param bitLength how many bits from the byte should we append to the bitblob
+     * @param input byte to append
+     * @param blob BitBlob to append to
+     */
     private void appendBitsToBitBlob(int bitLength, byte input, BitBlob blob) {
         for (int n = 0; n < bitLength; n++) {
             int currentBit = ByteUtils.getNthBitFromByte(bitLength - n - 1, input);
