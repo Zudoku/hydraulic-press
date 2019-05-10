@@ -28,8 +28,8 @@ public class ByteUtils {
     
     /**
      * Calculates the n:th bit in the given byte.
-     * n = 0 -> right most bit
-     * n = 7 -> left most bit
+     * n = 0 = right most bit
+     * n = 7 = left most bit
      * @param n number of bit 
      * @param input byte to calculate bits from
      * @return 1 or 0

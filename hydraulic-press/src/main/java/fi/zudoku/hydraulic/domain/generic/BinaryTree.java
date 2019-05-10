@@ -109,7 +109,7 @@ public class BinaryTree<T> {
     
     /**
      * Finds the node with the smallest value in the binary tree.
-     * @return BinaryTreeNode<T> with the smallest value or *null*
+     * @return BinaryTreeNode with the smallest value or *null*
      */
     public BinaryTreeNode<T> findMinNode() {
         return findMinNode(rootNode);

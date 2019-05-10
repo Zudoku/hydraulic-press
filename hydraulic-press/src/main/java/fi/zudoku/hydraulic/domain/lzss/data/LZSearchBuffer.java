@@ -10,7 +10,7 @@ public class LZSearchBuffer {
 
     /**
      * Custom implementation of a Lempel Ziv 77 search buffer.
-     * @param bufferSize 
+     * @param bufferSize buffer size
      */
     public LZSearchBuffer(int bufferSize) {
         this.buffer = new byte[bufferSize];

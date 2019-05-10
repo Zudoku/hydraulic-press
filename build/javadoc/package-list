@@ -1,0 +1,8 @@
+fi.zudoku.hydraulic
+fi.zudoku.hydraulic.domain
+fi.zudoku.hydraulic.domain.generic
+fi.zudoku.hydraulic.domain.huffman
+fi.zudoku.hydraulic.domain.huffman.data
+fi.zudoku.hydraulic.domain.lzss
+fi.zudoku.hydraulic.domain.lzss.data
+fi.zudoku.hydraulic.util

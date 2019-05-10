@@ -80,7 +80,7 @@ public class DecompressHuffManCoding implements Operation {
     /**
      * Reads the serialized input and deserializes it into a HuffmanTree class.
      * For more information on what the serialization pattern is:
-     * @see CompressHuffmanCoding#serializeHuffmanTree
+     * See CompressHuffmanCoding#serializeHuffmanTree
      * @param input data that contains the serialized huffman tree in the beginning.
      * @return a complete huffman tree.
      */
