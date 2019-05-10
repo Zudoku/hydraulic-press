@@ -4,7 +4,7 @@
 *[TiraLabra](https://github.com/TiraLabra/2019_4) projekti, 2019 Periodi IV*
 
 ```
-Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) ja DEFLATE tiedostonpakkaus algoritmit.
+Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) tiedostonpakkaus algoritmit.
 ```
 
 ### Dokumentaatio
@@ -20,3 +20,10 @@ Projektin aiheena on toteuttaa Huffman coding, Lempel-Ziv (LZ77) ja DEFLATE tied
 - [Määrittelydokumentti](./dokumentaatio/maarittelydokumentti.md)
 - [Toteutusdokumentti](./dokumentaatio/toteutusdokumentti.md)
 - [Testausdokumentti](./dokumentaatio/testausdokumentti.md)
+- [Käyttöohje](./dokumentaatio/kayttoohje.md)
+
+##### Javadoc
+- [javadoc](./build/javadoc)
+
+##### Jar
+- [hydraulic-press.jar](./build/hydraulic-press.jar)
