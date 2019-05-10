@@ -22,4 +22,4 @@ Jar tiedosto voidaan luoda komennolla `gradle :jar`.
 
 Jar tiedosto löytyy kansiosta  `/build./libs./hydraulic-press.jar`.
 
-Valmiiksi luotu JAR tiedosto löytyy kansiosta  `./../build/hydraulic-press.jar`.
+Valmiiksi luotu JAR tiedosto löytyy [kansiosta](./../build/hydraulic-press.jar)  `./../build/hydraulic-press.jar`.
